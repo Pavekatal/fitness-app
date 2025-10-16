@@ -1,12 +1,19 @@
-import { CourseType } from './shared-types/sharedTypes';
+import { BannerCourseType, CourseType } from './shared-types/sharedTypes';
 
 export const courses: CourseType[] = [
   {
-    _id: 1,
+    _id: '1',
     name: 'Йога',
     cover: '/img/yoga.png',
     description: '',
-    directions: [''],
+    directions: [
+      'Йога для новичков',
+      'Кундалини-йога',
+      'Хатха-йога',
+      'Классическая йога',
+      'Йогатерапия',
+      'Аштанга-йога',
+    ],
     fitting: [''],
     difficulty: '/img/difficulty.png',
     durationInDays: 25,
@@ -17,11 +24,18 @@ export const courses: CourseType[] = [
     workouts: [''],
   },
   {
-    _id: 2,
+    _id: '2',
     name: 'Стретчинг',
     cover: '/img/stretching.png',
     description: '',
-    directions: [''],
+    directions: [
+      'Йога для новичков',
+      'Кундалини-йога',
+      'Хатха-йога',
+      'Классическая йога',
+      'Йогатерапия',
+      'Аштанга-йога',
+    ],
     fitting: [''],
     difficulty: '/img/difficulty.png',
     durationInDays: 25,
@@ -32,11 +46,18 @@ export const courses: CourseType[] = [
     workouts: [''],
   },
   {
-    _id: 3,
+    _id: '3',
     name: 'Фитнес',
     cover: '/img/fitness.png',
     description: '',
-    directions: [''],
+    directions: [
+      'Йога для новичков',
+      'Кундалини-йога',
+      'Хатха-йога',
+      'Классическая йога',
+      'Йогатерапия',
+      'Аштанга-йога',
+    ],
     fitting: [''],
     difficulty: '/img/difficulty.png',
     durationInDays: 25,
@@ -47,11 +68,18 @@ export const courses: CourseType[] = [
     workouts: [''],
   },
   {
-    _id: 4,
+    _id: '4',
     name: 'Степ-аэробика',
     cover: '/img/step-aerobics.png',
     description: '',
-    directions: [''],
+    directions: [
+      'Йога для новичков',
+      'Кундалини-йога',
+      'Хатха-йога',
+      'Классическая йога',
+      'Йогатерапия',
+      'Аштанга-йога',
+    ],
     fitting: [''],
     difficulty: '/img/difficulty.png',
     durationInDays: 25,
@@ -62,11 +90,18 @@ export const courses: CourseType[] = [
     workouts: [''],
   },
   {
-    _id: 5,
+    _id: '5',
     name: 'Бодифлекс',
     cover: '/img/bodyflex.png',
     description: '',
-    directions: [''],
+    directions: [
+      'Йога для новичков',
+      'Кундалини-йога',
+      'Хатха-йога',
+      'Классическая йога',
+      'Йогатерапия',
+      'Аштанга-йога',
+    ],
     fitting: [''],
     difficulty: '/img/difficulty.png',
     durationInDays: 25,
@@ -76,4 +111,12 @@ export const courses: CourseType[] = [
     },
     workouts: [''],
   },
+];
+
+export const bannersCourses: BannerCourseType[] = [
+  { _id: '1', banner: '/img/card-1.png', bgc: '#FFC700' },
+  { _id: '2', banner: '/img/card-2.png', bgc: '#2491D2' },
+  { _id: '3', banner: '/img/card-3.png', bgc: '#F7A012' },
+  { _id: '4', banner: '/img/card-4.png', bgc: '#FF7E65' },
+  { _id: '5', banner: '/img/card-5.png', bgc: '#7D458C' },
 ];

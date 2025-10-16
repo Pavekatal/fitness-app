@@ -1,5 +1,5 @@
 export type CourseType = {
-  _id: number;
+  _id: string;
   name: string;
   cover: null | string;
   description: string;
@@ -12,4 +12,10 @@ export type CourseType = {
     to: number;
   };
   workouts: string[];
+};
+
+export type BannerCourseType = {
+  _id: string;
+  banner: string;
+  bgc: string;
 };
