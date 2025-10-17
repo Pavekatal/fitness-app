@@ -96,7 +96,7 @@ export default function CoursePage() {
               <li>упражнения заряжают бодростью</li>
               <li>помогают противостоять стрессам</li>
             </ul>
-            <Button className="w-[473px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]">
+            <Button className="w-[473px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white">
               Войдите, чтобы добавить курс
             </Button>
             <div className="flex-1"></div>
