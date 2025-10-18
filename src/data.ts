@@ -1,4 +1,9 @@
-import { BannerCourseType, CourseType } from './shared-types/sharedTypes';
+import {
+  BannerCourseType,
+  CourseType,
+  ProgressTest,
+  UserType,
+} from './shared-types/sharedTypes';
 
 export const courses: CourseType[] = [
   {
@@ -21,7 +26,8 @@ export const courses: CourseType[] = [
       from: 20,
       to: 50,
     },
-    workouts: [''],
+    workouts: ['1', '2', '3'],
+    progress: 40,
   },
   {
     _id: '2',
@@ -43,7 +49,8 @@ export const courses: CourseType[] = [
       from: 20,
       to: 50,
     },
-    workouts: [''],
+    workouts: ['4', '5', '6'],
+    progress: 100,
   },
   {
     _id: '3',
@@ -65,7 +72,8 @@ export const courses: CourseType[] = [
       from: 20,
       to: 50,
     },
-    workouts: [''],
+    workouts: ['1', '4', '3'],
+    progress: 0,
   },
   {
     _id: '4',
@@ -87,7 +95,8 @@ export const courses: CourseType[] = [
       from: 20,
       to: 50,
     },
-    workouts: [''],
+    workouts: ['2', '5', '6'],
+    progress: 20,
   },
   {
     _id: '5',
@@ -109,7 +118,8 @@ export const courses: CourseType[] = [
       from: 20,
       to: 50,
     },
-    workouts: [''],
+    workouts: ['1', '3', '4'],
+    progress: 80,
   },
 ];
 
@@ -119,4 +129,38 @@ export const bannersCourses: BannerCourseType[] = [
   { _id: '3', banner: '/img/card-3.png', bgc: '#F7A012' },
   { _id: '4', banner: '/img/card-4.png', bgc: '#FF7E65' },
   { _id: '5', banner: '/img/card-5.png', bgc: '#7D458C' },
+];
+
+export const users: UserType[] = [
+  {
+    _id: '1',
+    login: 'sergey.petrov96',
+    email: 'serg@test.ru',
+    name: 'Сергей',
+    password: '12345',
+    selectedCourses: ['1', '2', '3'],
+  },
+  {
+    _id: '2',
+    login: 'ekaterina.pavlova90',
+    email: 'kate@test.ru',
+    name: 'Екатерина',
+    password: '12345',
+    selectedCourses: ['5', '4', '1'],
+  },
+];
+
+export const progress: ProgressTest[] = [
+  {
+    _id: '1',
+    progress: 40,
+  },
+  {
+    _id: '2',
+    progress: 0,
+  },
+  {
+    _id: '3',
+    progress: 100,
+  },
 ];

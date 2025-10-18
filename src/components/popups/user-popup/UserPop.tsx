@@ -11,7 +11,7 @@ export default function UserPop() {
       </div>
       <div className="flex flex-col items-center gap-2.5">
         <Link
-          href="/profile"
+          href="/fitness/profile"
           className="w-[206px] h-[52px] px-[26px] py-[16px] rounded-[46px] bg-[#BCEC30] text-black text-lg font-normal leading-[21px] text-center  hover:bg-[#C6FF00] focus:bg-black focus:text-white"
         >
           Мой профиль

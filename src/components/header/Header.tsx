@@ -37,7 +37,7 @@ export default function Header() {
         </div>
       ) : (
         /* временная функция клика */
-        <div className="relative" onClick={() => setIsAuth(!isAuth)}>
+        <div className="relative" onClick={() => setIsAuth(isAuth)}>
           <div onClick={onOpenUserPop} className="flex items-center gap-4">
             <Image width={50} height={50} src="/img/prof.svg" alt="profile" />
             <p className="flex items-center text-black text-2xl font-normal leading-[28px] profile">

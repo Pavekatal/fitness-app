@@ -12,10 +12,39 @@ export type CourseType = {
     to: number;
   };
   workouts: string[];
+  progress: number;
 };
 
 export type BannerCourseType = {
   _id: string;
   banner: string;
   bgc: string;
+};
+
+export type UserType = {
+  _id: string | number;
+  login: string;
+  name: string;
+  email: string;
+  password: string;
+  selectedCourses: string[];
+};
+
+// export type WorkoutType = {
+//   _id: string;
+//   name: string;
+//   video: string;
+//   exercises: [
+//     {
+//       _id: string;
+//       name: string;
+//       video: string;
+
+//     }
+//   ]
+// };
+
+export type ProgressTest = {
+  _id: string;
+  progress: number;
 };
