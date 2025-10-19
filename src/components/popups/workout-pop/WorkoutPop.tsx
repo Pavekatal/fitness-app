@@ -1,10 +1,24 @@
-import Button from '@/components/button/Button';
+'use client';
+
+import Link from 'next/link';
+import { useState } from 'react';
 import WorkoutItem from '@/components/workout-item/WorkoutItem';
 import { workouts } from '@/data';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import { setSelectedWorkout } from '@/store/features/workoutSlice';
 
 export default function WorkoutPop() {
+  const dispatch = useAppDispatch();
+  const { selectedWorkout } = useAppSelector((state) => state.workouts);
+  const [activeWorkoutId, setActiveWorkoutId] = useState<string | null>(null);
+
   const onFormClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
+  };
+
+  const onSelectWorkout = (id: string) => {
+    setActiveWorkoutId(id);
+    dispatch(setSelectedWorkout(id));
   };
 
   return (
@@ -23,13 +37,21 @@ export default function WorkoutPop() {
         <div className="h-[360px] mt-[48px] mb-[34px] flex workoutcontent">
           <div className=" flex flex-col gap-[10px] workoutlist ">
             {workouts.map((workout) => (
-              <WorkoutItem key={workout._id} workout={workout} />
+              <WorkoutItem
+                key={workout._id}
+                workout={workout}
+                isSelected={activeWorkoutId === workout._id}
+                onSelect={() => onSelectWorkout(workout._id)}
+              />
             ))}
           </div>
         </div>
-        <Button className="w-[380px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white">
+        <Link
+          href={`/fitness/workouts/${selectedWorkout}`}
+          className="w-[380px] h-[52px] rounded-[46px] px-[26px] py-[16px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] text-center font-normal leading-[21px] cursor-pointer"
+        >
           Начать
-        </Button>
+        </Link>
       </div>
     </div>
   );
