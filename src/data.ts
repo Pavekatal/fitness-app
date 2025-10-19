@@ -3,6 +3,7 @@ import {
   CourseType,
   ProgressTest,
   UserType,
+  WorkoutType,
 } from './shared-types/sharedTypes';
 
 export const courses: CourseType[] = [
@@ -147,6 +148,63 @@ export const users: UserType[] = [
     name: 'Екатерина',
     password: '12345',
     selectedCourses: ['5', '4', '1'],
+  },
+];
+
+export const workouts: WorkoutType[] = [
+  {
+    _id: '1',
+    name: 'Утренняя практика',
+    video: '',
+    exercises: 'Йога на каждый день / 1 день ',
+  },
+  {
+    _id: '2',
+    name: 'Красота и здоровье',
+    video: '',
+    exercises: 'Йога на каждый день / 2 день ',
+  },
+  {
+    _id: '3',
+    name: 'Асаны стоя',
+    video: '',
+    exercises: 'Йога на каждый день / 3 день ',
+  },
+  {
+    _id: '4',
+    name: 'Растягиваем мышцы бедра',
+    video: '',
+    exercises: 'Йога на каждый день / 4 день ',
+  },
+  {
+    _id: '5',
+    name: 'Гибкость спины',
+    video: '',
+    exercises: 'Йога на каждый день / 5 день ',
+  },
+  {
+    _id: '6',
+    name: 'Training 6',
+    video: '',
+    exercises: 'Йога на каждый день / 6 день ',
+  },
+  {
+    _id: '7',
+    name: 'Training 7',
+    video: '',
+    exercises: 'Йога на каждый день / 7 день ',
+  },
+  {
+    _id: '8',
+    name: 'Training 8',
+    video: '',
+    exercises: 'Йога на каждый день / 8 день ',
+  },
+  {
+    _id: '9',
+    name: 'Training 9',
+    video: '',
+    exercises: 'Йога на каждый день / 9 день ',
   },
 ];
 

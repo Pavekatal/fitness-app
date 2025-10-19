@@ -30,19 +30,12 @@ export type UserType = {
   selectedCourses: string[];
 };
 
-// export type WorkoutType = {
-//   _id: string;
-//   name: string;
-//   video: string;
-//   exercises: [
-//     {
-//       _id: string;
-//       name: string;
-//       video: string;
-
-//     }
-//   ]
-// };
+export type WorkoutType = {
+  _id: string;
+  name: string;
+  video: string;
+  exercises: string;
+};
 
 export type ProgressTest = {
   _id: string;

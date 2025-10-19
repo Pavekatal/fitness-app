@@ -6,11 +6,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Button from '../button/Button';
 
-type CourseProp = {
+interface CourseProp {
   course: CourseType;
-};
+  onWorkoutPop?: React.MouseEventHandler<HTMLButtonElement>;
+}
 
-export default function Course({ course }: CourseProp) {
+export default function Course({ course, onWorkoutPop }: CourseProp) {
   const pathname = usePathname();
 
   const isProfile: boolean = pathname.startsWith('/fitness/profile');
@@ -108,7 +109,10 @@ export default function Course({ course }: CourseProp) {
                     ></div>
                   </div>
                 </div>
-                <Button className="w-[300px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white">
+                <Button
+                  onClick={onWorkoutPop}
+                  className="w-[300px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
+                >
                   {valueProgress(course.progress)}
                 </Button>
               </div>

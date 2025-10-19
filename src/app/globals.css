@@ -42,4 +42,27 @@ button {
     padding: 0;
     margin: -6px 0 0 12px;
   }
+
+  .workoutcontent {
+    width: max-content;
+  }
+
+  .workoutlist {
+    width: max-content;
+    overflow-y: auto;
+  }
+
+  .workoutlist::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .workoutlist::-webkit-scrollbar-track {
+    background-color: rgba(247, 247, 247, 1);
+    border-radius: 10px;
+  }
+
+  .workoutlist::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
+  }
 }

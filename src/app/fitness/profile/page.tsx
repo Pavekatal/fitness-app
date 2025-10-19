@@ -1,17 +1,34 @@
+'use client';
+
+import Image from 'next/image';
 import Button from '@/components/button/Button';
 import Course from '@/components/course/Course';
 import { courses, users } from '@/data';
-import Image from 'next/image';
+import { useState } from 'react';
+import WorkoutPop from '@/components/popups/workout-pop/WorkoutPop';
 
 export default function ProfilePage() {
+  const [openWorkoutPop, setOpenWorkoutPop] = useState(true);
+
   const userID = '1';
   const currentUser = users.find((user) => userID === user._id);
   const coursesUser = courses.filter((course) =>
     currentUser?.selectedCourses.includes(course._id),
   );
 
+  const onWorkoutPop = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setOpenWorkoutPop(!openWorkoutPop);
+  };
+
+  const onOverlayClick = () => {
+    if (openWorkoutPop) {
+      setOpenWorkoutPop(false);
+    }
+  };
+
   return (
-    <>
+    <div className="relative">
       <div className="flex flex-col gap-15">
         <div>
           <h2 className="text-black text-[40px] font-semibold leading-[47px]">
@@ -45,11 +62,16 @@ export default function ProfilePage() {
           </h2>
           <div className="mt-10 mb-[280px] flex flex-wrap gap-10">
             {coursesUser.map((course) => (
-              <Course key={course._id} course={course} />
+              <Course
+                onWorkoutPop={onWorkoutPop}
+                key={course._id}
+                course={course}
+              />
             ))}
           </div>
         </div>
       </div>
-    </>
+      <div onClick={onOverlayClick}>{openWorkoutPop && <WorkoutPop />}</div>
+    </div>
   );
 }
