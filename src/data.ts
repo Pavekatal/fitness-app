@@ -155,13 +155,13 @@ export const workouts: WorkoutType[] = [
   {
     _id: '1',
     name: 'Утренняя практика',
-    video: '',
+    video: '/video/example.mp4',
     exercises: 'Йога на каждый день / 1 день ',
   },
   {
     _id: '2',
     name: 'Красота и здоровье',
-    video: '',
+    video: 'https://www.youtube.com/embed/gJPs7b8SpVw',
     exercises: 'Йога на каждый день / 2 день ',
   },
   {
@@ -211,14 +211,47 @@ export const workouts: WorkoutType[] = [
 export const progress: ProgressTest[] = [
   {
     _id: '1',
-    progress: 40,
-  },
-  {
-    _id: '2',
+    name: 'Наклоны вперед',
     progress: 0,
   },
   {
+    _id: '2',
+    name: 'Наклоны вперед',
+    progress: 40,
+  },
+  {
     _id: '3',
+    name: 'Наклоны вперед',
+    progress: 80,
+  },
+  {
+    _id: '4',
+    name: 'Наклоны назад',
+    progress: 0,
+  },
+  {
+    _id: '5',
+    name: 'Наклоны назад',
+    progress: 15,
+  },
+  {
+    _id: '6',
+    name: 'Наклоны назад',
+    progress: 60,
+  },
+  {
+    _id: '7',
+    name: 'Поднятие ног, согнутых в коленях',
+    progress: 18,
+  },
+  {
+    _id: '8',
+    name: 'Поднятие ног, согнутых в коленях',
     progress: 100,
+  },
+  {
+    _id: '9',
+    name: 'Поднятие ног, согнутых в коленях',
+    progress: 40,
   },
 ];

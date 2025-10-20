@@ -39,5 +39,6 @@ export type WorkoutType = {
 
 export type ProgressTest = {
   _id: string;
+  name: string;
   progress: number;
 };
