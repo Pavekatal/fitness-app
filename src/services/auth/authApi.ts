@@ -1,5 +1,5 @@
-import { UserAuthType } from '@/shared-types/sharedTypes';
 import axios from 'axios';
+import { UserAuthType, UserForApiType } from '@/shared-types/sharedTypes';
 import { BASE_URL } from '../constants';
 
 type ResponseRegistryType = {
@@ -34,4 +34,15 @@ export const login = async (
       console.log(res.data);
       return res.data;
     });
+};
+
+export const getUserData = async (token: string): Promise<UserForApiType> => {
+  return await axios(BASE_URL + '/users/me', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => {
+    console.log('User data from api file:', res.data.user);
+    return res.data.user;
+  });
 };

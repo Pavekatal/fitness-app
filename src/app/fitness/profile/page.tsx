@@ -2,23 +2,34 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 import Button from '@/components/button/Button';
 import Course from '@/components/course/Course';
-import { courses, users, usersTest } from '@/data';
 import WorkoutPop from '@/components/popups/workout-pop/WorkoutPop';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import { logout } from '@/store/features/authSlice';
 
 export default function ProfilePage() {
+  const dispatch = useAppDispatch();
+  const { currentUser } = useAppSelector((state) => state.auth);
+  const { allCourses } = useAppSelector((state) => state.workouts);
   const [openWorkoutPop, setOpenWorkoutPop] = useState(false);
 
-  const userID = '1';
-  const currentUser = usersTest.find((user) => userID === user._id);
-  const coursesUser = courses.filter((course) =>
-    currentUser?.selectedCourses.includes(course._id),
+  const router = useRouter();
+
+  const coursesUser = allCourses.filter((course) =>
+    currentUser?.selectedCourses?.includes(course._id),
   );
 
   const onWorkoutPop = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpenWorkoutPop(!openWorkoutPop);
+  };
+
+  const onLogout = () => {
+    dispatch(logout());
+    router.push('/fitness/main');
   };
 
   const onOverlayClick = () => {
@@ -44,13 +55,16 @@ export default function ProfilePage() {
             <div className="flex flex-col items-start gap-11">
               <div className="flex flex-col gap-7.5 items-start">
                 <h3 className="text-black text-[32px] font-medium leading-[38px]">
-                  {users[0].name}
+                  {currentUser?.email}
                 </h3>
                 <p className="text-black text-lg font-normal leading-[21px] ">
-                  Логин: {users[0].login}
+                  Логин: {currentUser?.email}
                 </p>
               </div>
-              <Button className="w-[192px] px-6.5 py-4 border border-solid border-black text-black text-lg font-normal leading-[21px]">
+              <Button
+                onClick={onLogout}
+                className="w-[192px] px-6.5 py-4 bg-transparent border border-solid border-black text-black text-lg font-normal leading-[21px]  hover:bg-[#F7F7F7] focus:bg-[#E9ECED]"
+              >
                 Выйти
               </Button>
             </div>
@@ -61,13 +75,19 @@ export default function ProfilePage() {
             Мои курсы
           </h2>
           <div className="mt-10 mb-[280px] flex flex-wrap gap-10">
-            {coursesUser.map((course) => (
-              <Course
-                onWorkoutPop={onWorkoutPop}
-                key={course._id}
-                course={course}
-              />
-            ))}
+            {coursesUser.length !== 0 ? (
+              coursesUser.map((course) => (
+                <Course
+                  onWorkoutPop={onWorkoutPop}
+                  key={course._id}
+                  course={course}
+                />
+              ))
+            ) : (
+              <div className="w-full h-auto mt-10 mb-10  text-[38px] text-black bg-white p-10 text-center rounded-[30px] shadow-lg">
+                У вас пока нет добавленных курсов
+              </div>
+            )}
           </div>
         </div>
       </div>

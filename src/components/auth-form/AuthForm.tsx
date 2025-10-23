@@ -4,15 +4,15 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 import Logo from '@/components/logo/Logo';
 import Button from '@/components/button/Button';
 import Input from '@/components/input/Input';
 import { UserAuthType } from '@/shared-types/sharedTypes';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { setCurrentUser } from '@/store/features/authSlice';
+import { setCurrentUser, setToken } from '@/store/features/authSlice';
 import { setIsLoading } from '@/store/features/workoutSlice';
 import { login, registry } from '@/services/auth/authApi';
-import { toast } from 'react-toastify';
 
 type AuthFormProps = {
   isSignUp: boolean;
@@ -21,6 +21,7 @@ type AuthFormProps = {
 export default function AuthForm({ isSignUp }: AuthFormProps) {
   const dispatch = useAppDispatch();
   const { isLoading, errorMessage } = useAppSelector((state) => state.workouts);
+  // const { token, currentUser } = useAppSelector((state) => state.auth);
   const [authDataField, setAuthDataField] = useState<UserAuthType>({
     email: '',
     password: '',
@@ -99,7 +100,7 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
       login(dataToSend)
         .then((res) => {
           dispatch(setCurrentUser(dataToSend));
-          console.log(res.token);
+          dispatch(setToken(res.token));
           router.back();
           router.refresh();
         })
@@ -124,7 +125,6 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
       registry(dataToSend)
         .then((res) => {
           dispatch(setCurrentUser(dataToSend));
-          console.log(res.message);
           toast(res.message);
           router.back();
           router.back();

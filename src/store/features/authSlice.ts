@@ -1,30 +1,34 @@
-import { UserAuthType } from '@/shared-types/sharedTypes';
+import { UserForApiType } from '@/shared-types/sharedTypes';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type initialStateType = {
-  currentUser: null | UserAuthType;
+  currentUser: null | UserForApiType; // | UserAuthType;
+  token: string;
 };
 const initialState: initialStateType = {
-  currentUser: (() => {
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? JSON.parse(storedUser) : null;
-  })(),
+  currentUser: null,
+  token: '',
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCurrentUser: (state, action: PayloadAction<UserAuthType>) => {
+    setCurrentUser: (state, action: PayloadAction<UserForApiType>) => {
       state.currentUser = action.payload;
       localStorage.setItem('user', JSON.stringify(action.payload));
     },
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload;
+      localStorage.setItem('token', action.payload);
+    },
     logout: (state) => {
       state.currentUser = null;
+      state.token = '';
       localStorage.clear();
     },
   },
 });
 
-export const { setCurrentUser, logout } = authSlice.actions;
+export const { setCurrentUser, setToken, logout } = authSlice.actions;
 export const authSliceReducer = authSlice.reducer;

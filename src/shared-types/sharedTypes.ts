@@ -34,11 +34,22 @@ export interface UserAuthType {
 //   repeatePassword: string;
 // };
 
-export type UserDataType = {
-  _id: string;
+// export type UserDataType = {
+//   _id: string;
+//   email: string;
+//   selectedCourses: string[];
+// };
+
+export interface UserForApiType {
+  _id?: string;
   email: string;
-  selectedCourses: string[];
-};
+  password?: string;
+  selectedCourses?: string[];
+  courseProgress?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
+}
 
 export type WorkoutType = {
   _id: string;

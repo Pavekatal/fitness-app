@@ -3,7 +3,7 @@ import {
   CourseType,
   ProgressTest,
   UserAuthType,
-  UserDataType,
+  UserForApiType,
   WorkoutType,
 } from './shared-types/sharedTypes';
 
@@ -171,18 +171,29 @@ export const users: UserAuthType[] = [
   },
 ];
 
-export const usersTest: UserDataType[] = [
-  {
-    _id: '1',
-    email: 'serg@test.ru',
-    selectedCourses: ['ypox9r', 'q02a6i'],
-  },
-  {
-    _id: '2',
-    email: 'kate@test.ru',
-    selectedCourses: ['ypox9r', 'q02a6i'],
-  },
-];
+// export const usersTest: UserDataType[] = [
+//   {
+//     _id: '1',
+//     email: 'serg@test.ru',
+//     selectedCourses: ['ypox9r', 'q02a6i'],
+//   },
+//   {
+//     _id: '2',
+//     email: 'kate@test.ru',
+//     selectedCourses: ['ypox9r', 'q02a6i'],
+//   },
+// ];
+
+export const userDataFromApi: UserForApiType = {
+  _id: '68f5b23623aee722f4ab1036',
+  email: 'kate@test.com',
+  password: '$2b$10$k5JvYIF1zjEZcEItuymUoecAOEqYpZEHQxgvVlCXdCyAASPPoOL0W',
+  selectedCourses: [''],
+  courseProgress: [''],
+  createdAt: '2025-10-20T03:53:26.231Z',
+  updatedAt: '2025-10-20T03:53:26.231Z',
+  __v: 0,
+};
 
 export const workouts: WorkoutType[] = [
   {
