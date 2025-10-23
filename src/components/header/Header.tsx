@@ -18,6 +18,12 @@ export default function Header() {
     setOpenUserPop(!openUserPop);
   };
 
+  const onOverlayClickClick = () => {
+    if (openUserPop) {
+      setOpenUserPop(false);
+    }
+  };
+
   return (
     <div className="flex items-center justify-between mt-[50px]">
       <div className="flex flex-col items-start gap-[15px] ">
@@ -46,7 +52,7 @@ export default function Header() {
               {currentUser.email}
             </p>
           </div>
-          {openUserPop && <UserPop />}
+          <div onClick={onOverlayClickClick}>{openUserPop && <UserPop />}</div>
         </div>
       )}
     </div>

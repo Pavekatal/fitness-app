@@ -16,8 +16,15 @@ export default function UserPop() {
     router.push('/fitness/main');
   };
 
+  const onFormClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className="absolute mt-6 right-0 w-[266px] h-[258px] rounded-[30px] p-7.5 bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] flex flex-col items-center gap-8.5 z-100">
+    <div
+      onClick={onFormClick}
+      className="absolute mt-6 right-0 w-[266px] h-[258px] rounded-[30px] p-7.5 bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] flex flex-col items-center gap-8.5 z-100"
+    >
       <div className="flex flex-col items-center gap-2.5">
         <p className="text-black text-lg font-normal leading-[22px]">
           {currentUser?.email}

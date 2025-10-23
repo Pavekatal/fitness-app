@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/store/store';
 import { setCurrentUser } from '@/store/features/authSlice';
 import { setIsLoading } from '@/store/features/workoutSlice';
 import { login, registry } from '@/services/auth/authApi';
+import { toast } from 'react-toastify';
 
 type AuthFormProps = {
   isSignUp: boolean;
@@ -20,7 +21,6 @@ type AuthFormProps = {
 export default function AuthForm({ isSignUp }: AuthFormProps) {
   const dispatch = useAppDispatch();
   const { isLoading, errorMessage } = useAppSelector((state) => state.workouts);
-  const { currentUser } = useAppSelector((state) => state.auth);
   const [authDataField, setAuthDataField] = useState<UserAuthType>({
     email: '',
     password: '',
@@ -75,10 +75,7 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
     const { name, value } = e.target;
     setErrors({ ...errors, [name]: false });
     setError('');
-
-    if (!isSignUp) {
-      setAuthDataField({ ...authDataField, [name]: value });
-    }
+    setAuthDataField({ ...authDataField, [name]: value });
   };
 
   const onSubmitUserData = (
@@ -91,16 +88,18 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
       return;
     }
 
-    if (!isSignUp) {
-      dispatch(setIsLoading(true));
+    dispatch(setIsLoading(true));
 
-      const { repeatePassword, ...dataToSend } = authDataField;
-      console.log('dataToSend', dataToSend);
+    const dataToSend = {
+      email: authDataField.email,
+      password: authDataField.password,
+    };
+
+    if (!isSignUp) {
       login(dataToSend)
         .then((res) => {
-          console.log('dataToSend after request succses');
           dispatch(setCurrentUser(dataToSend));
-          console.log(currentUser, res);
+          console.log(res.token);
           router.back();
           router.refresh();
         })
@@ -122,11 +121,14 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
         });
     } else {
       dispatch(setIsLoading(true));
-      registry(authDataField)
+      registry(dataToSend)
         .then((res) => {
-          dispatch(setCurrentUser(res));
-          window.location.href = '/fitness/main';
-          // router.push('/fitness/main');
+          dispatch(setCurrentUser(dataToSend));
+          console.log(res.message);
+          toast(res.message);
+          router.back();
+          router.back();
+          router.refresh();
         })
         .catch((error) => {
           if (error instanceof AxiosError) {
@@ -173,19 +175,17 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
             type="password"
             placeholder="Пароль"
             className="w-[280px] h-[52px]"
-            autoComplete="current password"
           />
           {isSignUp && (
             <Input
               onChange={onChangeAuthField}
               error={errors.repeatePassword}
-              id="repeat-password"
-              name="repeat-password"
+              id="repeatePassword"
+              name="repeatePassword"
               value={authDataField.repeatePassword}
               type="password"
               placeholder="Повторите пароль"
               className="w-[280px] h-[52px]"
-              autoComplete="current password"
             />
           )}
           {!errorMessage && (
@@ -204,7 +204,7 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
 
           <Link
             href={!isSignUp ? '/auth/sign-up' : '/auth/sign-in'}
-            className={`rounded-[46px] text-center w-[280px] h-[52px] bg-transparent px-[26px] py-[16px] text-black text-[18px] font-normal leading-[21px] border border-solid border-black hover:bg-[#F7F7F7] focus:bg-[#E9ECED]   ${isLoading ? 'border-[1px_solid_-rgba(153,153,153,1)] text-[#999999] bg-transparent pointer-events-none ' : ''}`}
+            className={`rounded-[46px] text-center w-[280px] h-[52px] bg-transparent px-[26px] py-[16px] text-black text-[18px] font-normal leading-[21px] border border-solid border-black hover:bg-[#F7F7F7] focus:bg-[#E9ECED]   ${isLoading ? 'border-[1px_solid_-rgba(153,153,153,1)]' : ''} ${isLoading ? 'text-[#999999]' : ''} ${isLoading ? 'bg-transparent' : ''} ${isLoading ? 'pointer-events-none ' : ''} ' `}
           >
             {!isSignUp ? 'Зарегистрироваться' : 'Войти'}
           </Link>
