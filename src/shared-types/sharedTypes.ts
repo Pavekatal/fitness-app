@@ -1,10 +1,11 @@
 export type CourseType = {
   _id: string;
-  name: string;
-  cover: null | string;
   description: string;
   directions: string[];
   fitting: string[];
+  nameEN: string;
+  nameRU: string;
+  order: number;
   difficulty: string;
   durationInDays: number;
   dailyDurationInMinutes: {
@@ -12,21 +13,30 @@ export type CourseType = {
     to: number;
   };
   workouts: string[];
-  progress: number;
+  // progress: number;
+  __v: number;
 };
 
 export type BannerCourseType = {
   _id: string;
   banner: string;
   bgc: string;
+  cover: null | string;
 };
 
-export type UserType = {
-  _id: string | number;
-  login: string;
-  name: string;
+export interface UserAuthType {
   email: string;
   password: string;
+  repeatePassword?: string;
+}
+
+// export type UserRegType = UserAuthType & {
+//   repeatePassword: string;
+// };
+
+export type UserDataType = {
+  _id: string;
+  email: string;
   selectedCourses: string[];
 };
 

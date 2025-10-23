@@ -4,14 +4,14 @@ import Image from 'next/image';
 import { useState } from 'react';
 import Button from '@/components/button/Button';
 import Course from '@/components/course/Course';
-import { courses, users } from '@/data';
+import { courses, users, usersTest } from '@/data';
 import WorkoutPop from '@/components/popups/workout-pop/WorkoutPop';
 
 export default function ProfilePage() {
   const [openWorkoutPop, setOpenWorkoutPop] = useState(false);
 
   const userID = '1';
-  const currentUser = users.find((user) => userID === user._id);
+  const currentUser = usersTest.find((user) => userID === user._id);
   const coursesUser = courses.filter((course) =>
     currentUser?.selectedCourses.includes(course._id),
   );

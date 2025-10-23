@@ -6,9 +6,11 @@ import Image from 'next/image';
 import Button from '../button/Button';
 import Logo from '../logo/Logo';
 import UserPop from '../popups/user-popup/UserPop';
+import { useAppSelector } from '@/store/store';
 
 export default function Header() {
-  const [isAuth, setIsAuth] = useState<boolean>(true);
+  const { currentUser } = useAppSelector((state) => state.auth);
+
   const [openUserPop, setOpenUserPop] = useState<boolean>(false);
 
   const onOpenUserPop = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -27,7 +29,7 @@ export default function Header() {
           Онлайн-тренировки для занятий дома
         </p>
       </div>
-      {!isAuth ? (
+      {!currentUser ? (
         <div>
           <Link href="/auth/sign-in">
             <Button className="w-[103px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] font-normal leading-[21px] hover:bg-[#C6FF00]">
@@ -37,11 +39,11 @@ export default function Header() {
         </div>
       ) : (
         /* временная функция клика */
-        <div className="relative" onClick={() => setIsAuth(isAuth)}>
+        <div className="relative">
           <div onClick={onOpenUserPop} className="flex items-center gap-4">
             <Image width={50} height={50} src="/img/prof.svg" alt="profile" />
             <p className="flex items-center text-black text-2xl font-normal leading-[28px] profile">
-              Сергей
+              {currentUser.email}
             </p>
           </div>
           {openUserPop && <UserPop />}

@@ -32,7 +32,7 @@ export default function CoursePage() {
           }}
         >
           <h1 className="absolute top-10 left-10 text-white text-6xl font-medium leading-17.5 ">
-            {course?.name}
+            {course?.nameRU}
           </h1>
         </div>
         <div>
@@ -89,14 +89,19 @@ export default function CoursePage() {
             <h2 className="text-black text-6xl font-medium leading-[70px] ">
               Начните путь к новому телу
             </h2>
-            <ul className="list-disc list-inside text-black opacity-60 text-2xl font-normal leading-[28px]">
-              <li>проработка всех групп мышц</li>
-              <li>тренировка суставов</li>
-              <li>улучшение циркуляции крови</li>
-              <li>упражнения заряжают бодростью</li>
-              <li>помогают противостоять стрессам</li>
+            <ul className="list-disc list-outside pl-[30px] text-black opacity-60 text-2xl font-normal leading-[28px]">
+              {/* {course?.fitting.map((item, i) => (
+                <li className="pb-[4px]" key={i}>
+                  {item}
+                </li>
+              ))} */}
+              <li className="pb-[4px]">проработка всех групп мышц</li>
+              <li className="pb-[4px]">тренировка суставов</li>
+              <li className="pb-[4px]">улучшение циркуляции крови</li>
+              <li className="pb-[4px]">упражнения заряжают бодростью</li>
+              <li className="pb-[4px]">помогают противостоять стрессам</li>
             </ul>
-            <Button className="w-[473px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white">
+            <Button className="w-[437px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white">
               Войдите, чтобы добавить курс
             </Button>
             <div className="flex-1"></div>

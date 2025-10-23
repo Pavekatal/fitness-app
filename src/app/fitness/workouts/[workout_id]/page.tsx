@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import { courses, progress, workouts } from '@/data';
 import Button from '@/components/button/Button';
-import WorkoutVideo from '@/components/workout-video/WorkoutVideo';
+import WorkoutVideo from '@/components/video-player/VideoPlayer';
 import { useState } from 'react';
 import ProgressPop from '@/components/popups/progess-pop/ProgressPop';
 import CountProgressPop from '@/components/popups/count-progress-pop/CountProgressPop';
@@ -44,7 +44,7 @@ export default function WorkoutPage() {
   return (
     <div className="flex flex-col gap-10 items-start mb-[260px] ">
       <h1 className="text-black text-[60px] font-medium leading-[70px] ">
-        {course?.name}
+        {course?.nameRU}
       </h1>
       <WorkoutVideo workoutSrc={workout?.video} />
       <div className="w-full p-10 rounded-[30px] shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] bg-white ">

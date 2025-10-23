@@ -1,10 +1,11 @@
 'use client';
 
-import { CourseType } from '@/shared-types/sharedTypes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { CourseType } from '@/shared-types/sharedTypes';
 import Button from '../button/Button';
+import { bannersCourses } from '@/data';
 
 interface CourseProp {
   course: CourseType;
@@ -15,7 +16,8 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
   const pathname = usePathname();
 
   const isProfile: boolean = pathname.startsWith('/fitness/profile');
-  console.log(isProfile);
+
+  const coverCourse = bannersCourses.find((cover) => cover._id === course._id);
 
   const valueProgress = (progress: number): string => {
     let textButton = '';
@@ -42,7 +44,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
               className=" rounded-[30px]"
               width={360}
               height={325}
-              src={`${course.cover}`}
+              src={`${coverCourse?.cover}`}
               alt="yoga"
             />
 
@@ -58,7 +60,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
           </div>
           <div className="mt-[24px] pb-[15px] mx-[30px]">
             <h3 className="text-[rgba(0, 0, 0, 1)] text-[32px] font-medium leading-[38px]">
-              {course.name}
+              {course.nameRU}
             </h3>
             <div className="flex gap-[6px] flex-wrap mt-[20px]">
               <div className="flex items-center gap-[6px] h-[38px] rounded-[50px] bg-[#F7F7F7] p-2.5">
@@ -100,12 +102,12 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
               <div className=" flex flex-col gap-10 mt-5">
                 <div className="flex flex-col gap-2.5 items-start">
                   <p className="text-black text-lg font-normal leading-[21px]">
-                    Прогресс {course.progress} %
+                    Прогресс {course.difficulty} %
                   </p>
                   <div className="w-full h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden ">
                     <div
                       className=" h-full rounded-[50px] bg-[rgba(0,193,255,1)] duration-500 ease-in-out"
-                      style={{ width: `${course.progress}%` }}
+                      style={{ width: `${course.difficulty}%` }}
                     ></div>
                   </div>
                 </div>
@@ -113,7 +115,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
                   onClick={onWorkoutPop}
                   className="w-[300px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
                 >
-                  {valueProgress(course.progress)}
+                  {valueProgress(course.order)}
                 </Button>
               </div>
             )}

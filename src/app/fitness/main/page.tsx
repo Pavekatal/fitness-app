@@ -1,6 +1,11 @@
+'use client';
+
+import { useAppSelector } from '@/store/store';
 import Courses from '@/components/courses/Courses';
 
 export default function Home() {
+  const { errorMessage } = useAppSelector((state) => state.workouts);
+
   return (
     <>
       <section className="flex justify-between ">
@@ -15,13 +20,21 @@ export default function Home() {
         </div>
       </section>
       <section className="flex flex-col items-center mb-[81px]">
-        <Courses />
-        <a
-          href="#start"
-          className="w-[127px] h-[52px] rounded-[46px] px-[26px] py-[16px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] font-normal leading-[21px] cursor-pointer"
-        >
-          Наверх &uarr;
-        </a>
+        {errorMessage ? (
+          <div className="w-full h-auto mt-10 mb-10  text-[46px] text-black bg-white p-10 text-center rounded-[30px] shadow-lg">
+            {errorMessage}
+          </div>
+        ) : (
+          <>
+            <Courses />
+            <a
+              href="#start"
+              className="w-[127px] h-[52px] rounded-[46px] px-[26px] py-[16px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] font-normal leading-[21px] cursor-pointer"
+            >
+              Наверх &uarr;
+            </a>
+          </>
+        )}
       </section>
     </>
   );
