@@ -51,6 +51,14 @@ export interface UserForApiType {
   __v?: number;
 }
 
+export type ResponseMessageType = {
+  message: string;
+};
+
+export type RequestIdCourse = {
+  courseId: string;
+};
+
 export type WorkoutType = {
   _id: string;
   name: string;

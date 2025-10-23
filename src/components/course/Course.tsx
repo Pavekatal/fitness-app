@@ -6,6 +6,11 @@ import { usePathname } from 'next/navigation';
 import { CourseType } from '@/shared-types/sharedTypes';
 import Button from '../button/Button';
 import { bannersCourses } from '@/data';
+import { useAppSelector } from '@/store/store';
+import { addCourse } from '@/services/fitness/fitnessApi';
+import { AxiosError } from 'axios';
+
+import { toast } from 'react-toastify';
 
 interface CourseProp {
   course: CourseType;
@@ -13,10 +18,9 @@ interface CourseProp {
 }
 
 export default function Course({ course, onWorkoutPop }: CourseProp) {
+  const { token } = useAppSelector((state) => state.auth);
   const pathname = usePathname();
-
   const isProfile: boolean = pathname.startsWith('/fitness/profile');
-
   const coverCourse = bannersCourses.find((cover) => cover._id === course._id);
 
   const valueProgress = (progress: number): string => {
@@ -35,6 +39,34 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
     return textButton;
   };
 
+  const onAddCourse = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const courseId = { courseId: course._id };
+
+    if (token) {
+      console.log(course._id, token);
+      addCourse(courseId, token)
+        .then((res) => toast.success(res.message))
+        .catch((error) => {
+          if (error instanceof AxiosError) {
+            if (error.response) {
+              toast.error(error.response.data);
+            } else if (error.request) {
+              toast.error(
+                'Похоже, что-то с интернет-соединением. Попробуйте позже',
+              );
+            } else {
+              toast.error(
+                'Неизвестная ошибка. Попробуйте перезагрузить страницу',
+              );
+            }
+          }
+        });
+    }
+  };
+
   return (
     <>
       <Link href={`/fitness/courses/${course._id}`}>
@@ -48,15 +80,30 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
               alt="yoga"
             />
 
-            <button className="absolute top-[20px] right-[20px] bg-none p-0 border-none cursor-pointer w-[32px] h-[32px]">
-              <Image
-                width={32}
-                height={32}
-                src={!isProfile ? '/img/add.svg' : '/img/remove.svg'}
-                alt="add course"
-                title={!isProfile ? 'Добавить курс' : 'Удалить курс'}
-              />
-            </button>
+            {!isProfile ? (
+              <button
+                onClick={onAddCourse}
+                className="absolute top-[20px] right-[20px] bg-none p-0 border-none cursor-pointer  rounded-full w-[32px] h-[32px] hover:scale-[1.1] hover:shadow-xl"
+              >
+                <Image
+                  width={32}
+                  height={32}
+                  src="/img/add.svg"
+                  alt="add course"
+                  title="Добавить курс"
+                />
+              </button>
+            ) : (
+              <button className="absolute top-[20px] right-[20px] bg-none p-0 border-none cursor-pointer w-[32px] h-[32px] hover:scale-[1.1] hover:shadow-xl">
+                <Image
+                  width={32}
+                  height={32}
+                  src="/img/remove.svg"
+                  alt="add course"
+                  title="Удалить курс"
+                />
+              </button>
+            )}
           </div>
           <div className="mt-[24px] pb-[15px] mx-[30px]">
             <h3 className="text-[rgba(0, 0, 0, 1)] text-[32px] font-medium leading-[38px]">

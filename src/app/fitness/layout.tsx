@@ -19,9 +19,11 @@ import { useInitAuth } from '@/hooks/useInitAuth';
 
 export default function FitnessLayout(props: { children: ReactNode }) {
   const dispatch = useAppDispatch();
-  const { token, currentUser } = useAppSelector((state) => state.auth);
-  const { isLoading, allCourses } = useAppSelector((state) => state.workouts);
+  const { token } = useAppSelector((state) => state.auth);
+  const { allCourses } = useAppSelector((state) => state.workouts);
   const pathname = usePathname();
+
+  useInitAuth();
 
   useEffect(() => {
     dispatch(setIsLoading(true));
@@ -56,10 +58,9 @@ export default function FitnessLayout(props: { children: ReactNode }) {
   }, [dispatch, allCourses]);
 
   useEffect(() => {
-    if (pathname.startsWith('/fitness/profile') && !isLoading) {
+    if (pathname.startsWith('/fitness/profile')) {
       dispatch(setErrorMessage(''));
       if (token) {
-        // console.log('my token from AuthForm:', myToken);
         dispatch(setIsLoading(true));
         const fetchUserData = async () => {
           return await getUserData(token);
@@ -96,9 +97,7 @@ export default function FitnessLayout(props: { children: ReactNode }) {
           });
       }
     }
-  }, [dispatch, pathname, , token, isLoading]);
-  console.log('currentUser after', currentUser);
-  useInitAuth();
+  }, [dispatch, pathname, token]);
 
   return (
     <div className="ml-[140px] mr-[140px] ">

@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { UserAuthType, UserForApiType } from '@/shared-types/sharedTypes';
+import {
+  ResponseMessageType,
+  UserAuthType,
+  UserForApiType,
+} from '@/shared-types/sharedTypes';
 import { BASE_URL } from '../constants';
-
-type ResponseRegistryType = {
-  message: string;
-};
 
 export const registry = async (
   userData: UserAuthType,
-): Promise<ResponseRegistryType> => {
+): Promise<ResponseMessageType> => {
   return await axios
     .post(BASE_URL + '/auth/register', userData, {
       headers: { 'Content-Type': '' },
