@@ -59,6 +59,10 @@ export type RequestIdCourse = {
   courseId: string;
 };
 
+export type ResponseLoginType = {
+  token: string;
+};
+
 export type WorkoutType = {
   _id: string;
   name: string;

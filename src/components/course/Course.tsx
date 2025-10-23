@@ -6,11 +6,12 @@ import { usePathname } from 'next/navigation';
 import { CourseType } from '@/shared-types/sharedTypes';
 import Button from '../button/Button';
 import { bannersCourses } from '@/data';
-import { useAppSelector } from '@/store/store';
-import { addCourse } from '@/services/fitness/fitnessApi';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import { addCourse, deleteCourse } from '@/services/fitness/fitnessApi';
 import { AxiosError } from 'axios';
 
 import { toast } from 'react-toastify';
+import { setIsLoading } from '@/store/features/workoutSlice';
 
 interface CourseProp {
   course: CourseType;
@@ -18,6 +19,8 @@ interface CourseProp {
 }
 
 export default function Course({ course, onWorkoutPop }: CourseProp) {
+  const dispath = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.workouts);
   const { token } = useAppSelector((state) => state.auth);
   const pathname = usePathname();
   const isProfile: boolean = pathname.startsWith('/fitness/profile');
@@ -46,9 +49,11 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
     const courseId = { courseId: course._id };
 
     if (token) {
-      console.log(course._id, token);
+      dispath(setIsLoading(true));
       addCourse(courseId, token)
-        .then((res) => toast.success(res.message))
+        .then((res) => {
+          toast.success(res.message);
+        })
         .catch((error) => {
           if (error instanceof AxiosError) {
             if (error.response) {
@@ -63,6 +68,43 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
               );
             }
           }
+        })
+        .finally(() => {
+          dispath(setIsLoading(false));
+        });
+    }
+  };
+
+  const onDeleteCourse = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (token) {
+      dispath(setIsLoading(true));
+      deleteCourse(course._id, token)
+        .then((res) => {
+          toast.success(res.message);
+          window.location.reload();
+        })
+        .catch((error) => {
+          if (error instanceof AxiosError) {
+            if (error.response) {
+              toast.error(error.response.data);
+            } else if (error.request) {
+              toast.error(
+                'Похоже, что-то с интернет-соединением. Попробуйте позже',
+              );
+            } else {
+              toast.error(
+                'Неизвестная ошибка. Попробуйте перезагрузить страницу',
+              );
+            }
+          }
+        })
+        .finally(() => {
+          dispath(setIsLoading(false));
         });
     }
   };
@@ -70,7 +112,9 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
   return (
     <>
       <Link href={`/fitness/courses/${course._id}`}>
-        <div className="w-[360px]  rounded-[30px] shadow-lg bg-white transition-transform duration-300 ease-in-out hover:scale-101">
+        <div
+          className={`w-[360px]  rounded-[30px] shadow-lg bg-white transition-transform duration-300 ease-in-out hover:scale-101  ${isLoading ? 'bg-white opacity-40 cursor-wait' : ''}`}
+        >
           <div className="relative">
             <Image
               className=" rounded-[30px]"
@@ -94,7 +138,10 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
                 />
               </button>
             ) : (
-              <button className="absolute top-[20px] right-[20px] bg-none p-0 border-none cursor-pointer w-[32px] h-[32px] hover:scale-[1.1] hover:shadow-xl">
+              <button
+                onClick={onDeleteCourse}
+                className="absolute top-[20px] rounded-full right-[20px] bg-none p-0 border-none cursor-pointer w-[32px] h-[32px] hover:scale-[1.1] hover:shadow-xl"
+              >
                 <Image
                   width={32}
                   height={32}

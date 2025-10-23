@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  ResponseLoginType,
   ResponseMessageType,
   UserAuthType,
   UserForApiType,
@@ -14,13 +15,8 @@ export const registry = async (
       headers: { 'Content-Type': '' },
     })
     .then((res) => {
-      console.log('res.data:', res);
       return res.data;
     });
-};
-
-type ResponseLoginType = {
-  token: string;
 };
 
 export const login = async (
@@ -31,7 +27,6 @@ export const login = async (
       headers: { 'Content-Type': '' },
     })
     .then((res) => {
-      console.log(res.data);
       return res.data;
     });
 };
@@ -42,7 +37,6 @@ export const getUserData = async (token: string): Promise<UserForApiType> => {
       Authorization: `Bearer ${token}`,
     },
   }).then((res) => {
-    console.log('User data from api file:', res.data.user);
     return res.data.user;
   });
 };

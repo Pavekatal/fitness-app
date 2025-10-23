@@ -12,8 +12,8 @@ export const getAllCourses = async (): Promise<CourseType[]> => {
   });
 };
 
-export const getCourse = async (course_id: string): Promise<CourseType> => {
-  return await axios(BASE_URL + `/courses/${course_id}`).then((res) => {
+export const getCourse = async (courseId: string): Promise<CourseType> => {
+  return await axios(BASE_URL + `/courses/${courseId}`).then((res) => {
     return res.data;
   });
 };
@@ -30,7 +30,23 @@ export const addCourse = async (
       },
     })
     .then((res) => {
-      console.log('data from add course:', res.data);
+      return res.data;
+    });
+};
+
+export const deleteCourse = async (
+  courseId: string,
+  token: string,
+): Promise<ResponseMessageType> => {
+  return await axios
+    .delete(BASE_URL + `/users/me/courses/${courseId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': '',
+      },
+    })
+    .then((res) => {
+      console.log('Response data from delete api:', res.data);
       return res.data;
     });
 };
