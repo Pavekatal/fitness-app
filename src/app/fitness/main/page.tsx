@@ -2,6 +2,7 @@
 
 import { useAppSelector } from '@/store/store';
 import Courses from '@/components/courses/Courses';
+import ErrorMessageContent from '@/components/error-message/ErrorMessageContent';
 
 export default function Home() {
   const { errorMessage } = useAppSelector((state) => state.workouts);
@@ -21,9 +22,7 @@ export default function Home() {
       </section>
       <section className="flex flex-col items-center mb-[81px]">
         {errorMessage ? (
-          <div className="w-full h-auto mt-10 mb-10  text-[46px] text-black bg-white p-10 text-center rounded-[30px] shadow-lg">
-            {errorMessage}
-          </div>
+          <ErrorMessageContent />
         ) : (
           <>
             <Courses />

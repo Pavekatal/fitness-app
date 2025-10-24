@@ -3,15 +3,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
+
 import { CourseType } from '@/shared-types/sharedTypes';
 import Button from '../button/Button';
 import { bannersCourses } from '@/data';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { addCourse, deleteCourse } from '@/services/fitness/fitnessApi';
-import { AxiosError } from 'axios';
-
-import { toast } from 'react-toastify';
+import { deleteCourse } from '@/services/fitness/fitnessApi';
 import { setIsLoading } from '@/store/features/workoutSlice';
+import { useAddCourse } from '@/hooks/useAddCourse';
 
 interface CourseProp {
   course: CourseType;
@@ -25,6 +26,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
   const pathname = usePathname();
   const isProfile: boolean = pathname.startsWith('/fitness/profile');
   const coverCourse = bannersCourses.find((cover) => cover._id === course._id);
+  const { onAddCourse } = useAddCourse();
 
   const valueProgress = (progress: number): string => {
     let textButton = '';
@@ -40,39 +42,6 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
     }
 
     return textButton;
-  };
-
-  const onAddCourse = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    const courseId = { courseId: course._id };
-
-    if (token) {
-      dispath(setIsLoading(true));
-      addCourse(courseId, token)
-        .then((res) => {
-          toast.success(res.message);
-        })
-        .catch((error) => {
-          if (error instanceof AxiosError) {
-            if (error.response) {
-              toast.error(error.response.data);
-            } else if (error.request) {
-              toast.error(
-                'Похоже, что-то с интернет-соединением. Попробуйте позже',
-              );
-            } else {
-              toast.error(
-                'Неизвестная ошибка. Попробуйте перезагрузить страницу',
-              );
-            }
-          }
-        })
-        .finally(() => {
-          dispath(setIsLoading(false));
-        });
-    }
   };
 
   const onDeleteCourse = (
@@ -126,7 +95,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
 
             {!isProfile ? (
               <button
-                onClick={onAddCourse}
+                onClick={(e) => onAddCourse(e, course._id)}
                 className="absolute top-[20px] right-[20px] bg-none p-0 border-none cursor-pointer  rounded-full w-[32px] h-[32px] hover:scale-[1.1] hover:shadow-xl"
               >
                 <Image

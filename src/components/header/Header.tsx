@@ -44,7 +44,6 @@ export default function Header() {
           </Link>
         </div>
       ) : (
-        /* временная функция клика */
         <div className="relative">
           <div onClick={onOpenUserPop} className="flex items-center gap-4">
             <Image width={50} height={50} src="/img/prof.svg" alt="profile" />
