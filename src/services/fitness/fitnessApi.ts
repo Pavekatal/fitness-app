@@ -4,6 +4,7 @@ import {
   CourseType,
   RequestIdCourse,
   ResponseMessageType,
+  WorkoutType,
 } from '@/shared-types/sharedTypes';
 
 export const getAllCourses = async (): Promise<CourseType[]> => {
@@ -14,6 +15,21 @@ export const getAllCourses = async (): Promise<CourseType[]> => {
 
 export const getCourse = async (courseId: string): Promise<CourseType> => {
   return await axios(BASE_URL + `/courses/${courseId}`).then((res) => {
+    return res.data;
+  });
+};
+
+export const getAllWorkouts = async (
+  courseId: string,
+  token: string,
+): Promise<WorkoutType[]> => {
+  return await axios(BASE_URL + `/courses/${courseId}/workouts`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': '',
+    },
+  }).then((res) => {
+    console.log('All workouts from api:', res.data);
     return res.data;
   });
 };

@@ -2,14 +2,16 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+
 import WorkoutItem from '@/components/workout-item/WorkoutItem';
-import { workouts } from '@/data';
+// import { workouts } from '@/data';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { setSelectedWorkout } from '@/store/features/workoutSlice';
 
 export default function WorkoutPop() {
   const dispatch = useAppDispatch();
-  const { selectedWorkout } = useAppSelector((state) => state.workouts);
+  const { allWorkouts, selectedWorkout, isLoading, errorMessage } =
+    useAppSelector((state) => state.workouts);
   const [activeWorkoutId, setActiveWorkoutId] = useState<string | null>(null);
 
   const onFormClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -35,16 +37,26 @@ export default function WorkoutPop() {
           Выберите тренировку
         </h2>
         <div className="h-[360px] mt-[48px] mb-[34px] flex workoutcontent">
-          <div className=" flex flex-col gap-[10px] workoutlist ">
-            {workouts.map((workout) => (
-              <WorkoutItem
-                key={workout._id}
-                workout={workout}
-                isSelected={activeWorkoutId === workout._id}
-                onSelect={() => onSelectWorkout(workout._id)}
-              />
-            ))}
-          </div>
+          {isLoading ? (
+            <h4 className="text-black text-[24px] font-normal leading-[26px] ">
+              Тренировки загружаются ...
+            </h4>
+          ) : errorMessage ? (
+            <h4 className="text-black text-[24px] font-normal leading-[28px] w-[380px] text-center ">
+              {errorMessage}
+            </h4>
+          ) : (
+            <div className=" flex flex-col gap-[10px] workoutlist ">
+              {allWorkouts.map((workout) => (
+                <WorkoutItem
+                  key={workout._id}
+                  workout={workout}
+                  isSelected={activeWorkoutId === workout._id}
+                  onSelect={() => onSelectWorkout(workout._id)}
+                />
+              ))}
+            </div>
+          )}
         </div>
         <Link
           href={`/fitness/workouts/${selectedWorkout}`}

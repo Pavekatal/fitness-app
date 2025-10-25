@@ -24,6 +24,19 @@ export type BannerCourseType = {
   cover: null | string;
 };
 
+export type WorkoutType = {
+  _id: string;
+  name: string;
+  video: string;
+  exercises: string[];
+};
+
+export type ProgressTest = {
+  _id: string;
+  name: string;
+  progress: number;
+};
+
 export interface UserAuthType {
   email: string;
   password: string;
@@ -32,12 +45,6 @@ export interface UserAuthType {
 
 // export type UserRegType = UserAuthType & {
 //   repeatePassword: string;
-// };
-
-// export type UserDataType = {
-//   _id: string;
-//   email: string;
-//   selectedCourses: string[];
 // };
 
 export interface UserForApiType {
@@ -61,17 +68,4 @@ export type RequestIdCourse = {
 
 export type ResponseLoginType = {
   token: string;
-};
-
-export type WorkoutType = {
-  _id: string;
-  name: string;
-  video: string;
-  exercises: string;
-};
-
-export type ProgressTest = {
-  _id: string;
-  name: string;
-  progress: number;
 };

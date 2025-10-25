@@ -19,6 +19,10 @@ export default function WorkoutItem({
 
   const bgSelectedWorkout = isSelected ? 'bg-[rgba(247,247,247,1)]' : null;
 
+  const titleParts = workout.name.split('/').map((part) => part.trim());
+  const mainTitle = titleParts[0];
+  const subTitle = titleParts[1];
+
   const toggle = () => {
     // временная функция, после введения глобального состояния убрать
     setWorkoutCompleted(workoutСompleted);
@@ -45,11 +49,15 @@ export default function WorkoutItem({
           )}
           <div className="flex flex-col  gap-[10px]">
             <h4 className="text-black text-[24px] font-normal leading-[26px] ">
-              {workout.name}
+              {mainTitle}
             </h4>
-            <p className="text-black text-[16px] font-normal leading-[18px] ">
-              {workout.exercises}
-            </p>
+            {subTitle ? (
+              <p className="text-black text-[16px] font-normal leading-[18px] ">
+                {subTitle}
+              </p>
+            ) : (
+              <p className=" text-black text-[16px] font-normal leading-[18px] "></p>
+            )}
           </div>
         </div>
       </div>

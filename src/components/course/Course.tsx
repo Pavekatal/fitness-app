@@ -16,7 +16,11 @@ import { useAddCourse } from '@/hooks/useAddCourse';
 
 interface CourseProp {
   course: CourseType;
-  onWorkoutPop?: React.MouseEventHandler<HTMLButtonElement>;
+  onWorkoutPop: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: string,
+  ) => void;
+  selectedCourse?: string | null;
 }
 
 export default function Course({ course, onWorkoutPop }: CourseProp) {
@@ -175,7 +179,9 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
                   </div>
                 </div>
                 <Button
-                  onClick={onWorkoutPop}
+                  onClick={(
+                    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+                  ) => onWorkoutPop(e, course._id)}
                   className="w-[300px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
                 >
                   {valueProgress(course.order)}

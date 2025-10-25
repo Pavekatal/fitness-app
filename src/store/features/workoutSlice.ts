@@ -1,9 +1,10 @@
-import { CourseType } from '@/shared-types/sharedTypes';
+import { CourseType, WorkoutType } from '@/shared-types/sharedTypes';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type initialStateType = {
   allCourses: CourseType[];
   currentCourse: null | CourseType;
+  allWorkouts: WorkoutType[];
   selectedWorkout: null | string;
   isLoading: boolean;
   errorMessage: string;
@@ -12,6 +13,7 @@ type initialStateType = {
 const initialState: initialStateType = {
   allCourses: [],
   currentCourse: null,
+  allWorkouts: [],
   selectedWorkout: null,
   isLoading: false,
   errorMessage: '',
@@ -26,6 +28,9 @@ const workoutSlice = createSlice({
     },
     setCurrentCourse: (state, action: PayloadAction<CourseType>) => {
       state.currentCourse = action.payload;
+    },
+    setAllWorkouts: (state, action: PayloadAction<WorkoutType[]>) => {
+      state.allWorkouts = action.payload;
     },
     setSelectedWorkout: (state, action: PayloadAction<string>) => {
       state.selectedWorkout = action.payload;
@@ -42,6 +47,7 @@ const workoutSlice = createSlice({
 export const {
   setAllCourses,
   setCurrentCourse,
+  setAllWorkouts,
   setSelectedWorkout,
   setIsLoading,
   setErrorMessage,

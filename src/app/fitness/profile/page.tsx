@@ -3,28 +3,62 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { AxiosError } from 'axios';
 
 import Button from '@/components/button/Button';
 import Course from '@/components/course/Course';
 import WorkoutPop from '@/components/popups/workout-pop/WorkoutPop';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { logout } from '@/store/features/authSlice';
+import { getAllWorkouts } from '@/services/fitness/fitnessApi';
+import {
+  setAllWorkouts,
+  setErrorMessage,
+  setIsLoading,
+} from '@/store/features/workoutSlice';
 
 export default function ProfilePage() {
   const dispatch = useAppDispatch();
-  const { currentUser } = useAppSelector((state) => state.auth);
+  const { currentUser, token } = useAppSelector((state) => state.auth);
   const { allCourses } = useAppSelector((state) => state.workouts);
-  const [openWorkoutPop, setOpenWorkoutPop] = useState(false);
+  const [openWorkoutPop, setOpenWorkoutPop] = useState<boolean>(false);
 
   const router = useRouter();
 
-  const coursesUser = allCourses.filter((course) =>
-    currentUser?.selectedCourses?.includes(course._id),
+  const coursesUser = allCourses.filter((courses) =>
+    currentUser?.selectedCourses?.includes(courses._id),
   );
 
-  const onWorkoutPop = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onWorkoutPop = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault();
     setOpenWorkoutPop(!openWorkoutPop);
+    dispatch(setErrorMessage(''));
+
+    dispatch(setIsLoading(true));
+    getAllWorkouts(id, token)
+      .then((res) => {
+        dispatch(setAllWorkouts(res));
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            dispatch(setErrorMessage(error.response.data));
+          } else if (error.request) {
+            dispatch(
+              setErrorMessage(
+                'Похоже, что-то с интернет-соединением. Попробуйте позже',
+              ),
+            );
+          } else {
+            setErrorMessage(
+              'Неизвестная ошибка. Попробуйте перезагрузить страницу',
+            );
+          }
+        }
+      })
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
   };
 
   const onLogout = () => {
