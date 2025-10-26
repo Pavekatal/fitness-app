@@ -32,6 +32,8 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
   const coverCourse = bannersCourses.find((cover) => cover._id === course._id);
   const { onAddCourse } = useAddCourse();
 
+  // const progressDataCourse = currentUser?.courseProgress
+
   const valueProgress = (progress: number): string => {
     let textButton = '';
 

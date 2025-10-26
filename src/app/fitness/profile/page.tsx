@@ -32,8 +32,8 @@ export default function ProfilePage() {
   const onWorkoutPop = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault();
     setOpenWorkoutPop(!openWorkoutPop);
+    localStorage.setItem('selectCourseId', id);
     dispatch(setErrorMessage(''));
-
     dispatch(setIsLoading(true));
     getAllWorkouts(id, token)
       .then((res) => {

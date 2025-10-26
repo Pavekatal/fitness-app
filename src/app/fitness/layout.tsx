@@ -7,12 +7,19 @@ import { usePathname } from 'next/navigation';
 import { useParams } from 'next/navigation';
 
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { getAllCourses, getCourse } from '@/services/fitness/fitnessApi';
+import {
+  getAllCourses,
+  getCourse,
+  getProgressByWorkout,
+  getWorkout,
+} from '@/services/fitness/fitnessApi';
 import {
   setAllCourses,
   setCurrentCourse,
+  setCurrentWorkout,
   setErrorMessage,
   setIsLoading,
+  setProgressByWorkout,
 } from '@/store/features/workoutSlice';
 import Header from '@/components/header/Header';
 import { getUserData } from '@/services/auth/authApi';
@@ -22,9 +29,11 @@ import { useInitAuth } from '@/hooks/useInitAuth';
 export default function FitnessLayout(props: { children: ReactNode }) {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state) => state.auth);
-  const { allCourses } = useAppSelector((state) => state.workouts);
+  const { allCourses, isLoading } = useAppSelector((state) => state.workouts);
   const pathname = usePathname();
-  const params = useParams<{ course_id: string }>();
+  const paramsCourse = useParams<{ course_id: string }>();
+  const paramsWorkout = useParams<{ workout_id: string }>();
+  const selectCourseId = localStorage.getItem('selectCourseId');
 
   useInitAuth();
 
@@ -109,7 +118,7 @@ export default function FitnessLayout(props: { children: ReactNode }) {
     if (pathname.startsWith('/fitness/courses')) {
       dispatch(setErrorMessage(''));
       dispatch(setIsLoading(true));
-      getCourse(params.course_id)
+      getCourse(paramsCourse.course_id)
         .then((res) => {
           dispatch(setCurrentCourse(res));
         })
@@ -136,7 +145,124 @@ export default function FitnessLayout(props: { children: ReactNode }) {
           dispatch(setIsLoading(false));
         });
     }
-  }, [dispatch, pathname, params.course_id]);
+  }, [dispatch, pathname, paramsCourse.course_id]);
+
+  // Загрузка данных конкретной тренировки
+  useEffect(() => {
+    if (pathname.startsWith('/fitness/workouts')) {
+      dispatch(setErrorMessage(''));
+      if (token) {
+        dispatch(setIsLoading(true));
+        getWorkout(paramsWorkout.workout_id, token)
+          .then((res) => {
+            dispatch(setCurrentWorkout(res));
+          })
+          .catch((error) => {
+            if (error instanceof AxiosError) {
+              if (error.response) {
+                dispatch(setErrorMessage(error.response.data));
+              } else if (error.request) {
+                dispatch(
+                  setErrorMessage(
+                    'Похоже, что-то с интернет-соединением. Попробуйте позже',
+                  ),
+                );
+              } else {
+                dispatch(
+                  setErrorMessage(
+                    'Неизвестная ошибка. Попробуйте перезагрузить страницу',
+                  ),
+                );
+              }
+            }
+          })
+          .finally(() => {
+            dispatch(setIsLoading(false));
+          });
+      }
+    }
+  }, [dispatch, pathname, token, paramsWorkout.workout_id]);
+
+  // Загрузка прогресса по тренировке
+  useEffect(() => {
+    if (pathname.startsWith('/fitness/workouts') && !isLoading) {
+      dispatch(setErrorMessage(''));
+      if (token && selectCourseId) {
+        getProgressByWorkout(token, selectCourseId, paramsWorkout.workout_id)
+          .then((res) => dispatch(setProgressByWorkout(res)))
+          .catch((error) => {
+            if (error instanceof AxiosError) {
+              if (error.response) {
+                dispatch(setErrorMessage(error.response.data));
+              } else if (error.request) {
+                dispatch(
+                  setErrorMessage(
+                    'Похоже, что-то с интернет-соединением. Попробуйте позже',
+                  ),
+                );
+              } else {
+                dispatch(
+                  setErrorMessage(
+                    'Неизвестная ошибка. Попробуйте перезагрузить страницу',
+                  ),
+                );
+              }
+            }
+          })
+          .finally(() => {
+            dispatch(setIsLoading(false));
+          });
+      }
+    }
+  }, [
+    dispatch,
+    token,
+    pathname,
+    isLoading,
+    paramsWorkout.workout_id,
+    selectCourseId,
+  ]);
+
+  //   const coursesUser = allCourses.filter((courses) =>
+  //   currentUser?.selectedCourses?.includes(courses._id),
+  // );
+
+  // Загрузка прогресса по всему курсу
+  // useEffect(() => {
+  //   if (pathname.startsWith('/fitness/profile') && !isLoading) {
+  //     dispatch(setErrorMessage(''));
+  //     if (token && !isLoading) {
+  //       dispatch(setIsLoading(true));
+
+  //       getProgressByCourse(courseId, token)
+  //         .then((res) => {
+  //           dispatch(setAllProgress(res));
+  //         })
+  //         .catch((error) => {
+  //           if (error instanceof AxiosError) {
+  //             if (error.response) {
+  //               dispatch(setErrorMessage(error.response.data));
+  //             } else if (error.request) {
+  //               dispatch(
+  //                 setErrorMessage(
+  //                   'Похоже, что-то с интернет-соединением. Попробуйте позже',
+  //                 ),
+  //               );
+  //             } else {
+  //               dispatch(
+  //                 setErrorMessage(
+  //                   'Неизвестная ошибка. Попробуйте перезагрузить страницу',
+  //                 ),
+  //               );
+  //             }
+  //           }
+  //         })
+  //         .finally(() => {
+  //           dispatch(setIsLoading(false));
+  //         });
+  //     }
+  //   }
+  // }, [pathname, dispatch, token, selectCourseId, isLoading]);
 
   return (
     <div className="ml-[140px] mr-[140px] ">

@@ -2,6 +2,8 @@ import axios from 'axios';
 import { BASE_URL } from '../constants';
 import {
   CourseType,
+  ProgressTypeOfCourse,
+  ProgressTypeOfWorkout,
   RequestIdCourse,
   ResponseMessageType,
   WorkoutType,
@@ -15,21 +17,6 @@ export const getAllCourses = async (): Promise<CourseType[]> => {
 
 export const getCourse = async (courseId: string): Promise<CourseType> => {
   return await axios(BASE_URL + `/courses/${courseId}`).then((res) => {
-    return res.data;
-  });
-};
-
-export const getAllWorkouts = async (
-  courseId: string,
-  token: string,
-): Promise<WorkoutType[]> => {
-  return await axios(BASE_URL + `/courses/${courseId}/workouts`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': '',
-    },
-  }).then((res) => {
-    console.log('All workouts from api:', res.data);
     return res.data;
   });
 };
@@ -62,7 +49,61 @@ export const deleteCourse = async (
       },
     })
     .then((res) => {
-      console.log('Response data from delete api:', res.data);
       return res.data;
     });
+};
+
+export const getAllWorkouts = async (
+  courseId: string,
+  token: string,
+): Promise<WorkoutType[]> => {
+  return await axios(BASE_URL + `/courses/${courseId}/workouts`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => {
+    return res.data;
+  });
+};
+
+export const getWorkout = async (workoutId: string, token: string) => {
+  return await axios(BASE_URL + `/workouts/${workoutId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => {
+    return res.data;
+  });
+};
+
+export const getProgressByWorkout = async (
+  token: string,
+  courseId: string,
+  workoutID: string,
+): Promise<ProgressTypeOfWorkout> => {
+  return await axios(
+    BASE_URL + `/users/me/progress?courseId=${courseId}&workoutId=${workoutID}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  ).then((res) => {
+    console.log('Progress by workout from api:', res.data);
+    return res.data;
+  });
+};
+
+export const getProgressByCourse = async (
+  courseId: string,
+  token: string,
+): Promise<ProgressTypeOfCourse> => {
+  return await axios(BASE_URL + `/users/me/progress?courseId=${courseId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => {
+    console.log('Progress of course from api:', res.data);
+    return res.data;
+  });
 };

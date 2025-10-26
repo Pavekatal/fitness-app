@@ -21,7 +21,8 @@ export default function WorkoutItem({
 
   const titleParts = workout.name.split('/').map((part) => part.trim());
   const mainTitle = titleParts[0];
-  const subTitle = titleParts[1];
+  const subTitle =
+    titleParts.length >= 2 ? `${titleParts[1]} / ${titleParts[2]}` : null;
 
   const toggle = () => {
     // временная функция, после введения глобального состояния убрать

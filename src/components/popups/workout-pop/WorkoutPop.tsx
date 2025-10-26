@@ -31,7 +31,7 @@ export default function WorkoutPop() {
       />
       <div
         onClick={onFormClick}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-115 h-[609px] rounded-[30px] bg-white p-10 shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] flex flex-col z-50"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-115 h-[609px] rounded-[30px] bg-white p-10 shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] flex flex-col z-50"
       >
         <h2 className="text-black text-[32px] font-normal leading-[38px]">
           Выберите тренировку

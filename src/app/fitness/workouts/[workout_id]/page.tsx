@@ -1,26 +1,28 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-import { courses, progress, workouts } from '@/data';
+import { useState } from 'react';
+
 import Button from '@/components/button/Button';
 import WorkoutVideo from '@/components/video-player/VideoPlayer';
-import { useState } from 'react';
 import ProgressPop from '@/components/popups/progess-pop/ProgressPop';
 import CountProgressPop from '@/components/popups/count-progress-pop/CountProgressPop';
+import { useAppSelector } from '@/store/store';
 
 export default function WorkoutPage() {
-  const params = useParams<{ workout_id: string }>();
+  const { allCourses, progressByWorkout, currentWorkout } = useAppSelector(
+    (state) => state.workouts,
+  );
 
   const [openProgressPop, setOpenProgressPop] = useState<boolean>(false);
   const [openCountProgressPop, setOpenCountProgressPop] =
     useState<boolean>(false);
 
-  const workout = workouts.find((workout) => workout._id === params.workout_id);
-  const course = courses.find((course) => course._id === params.workout_id);
+  const selectCourseId = localStorage.getItem('selectCourseId');
+  const course = allCourses.find((course) => course._id === selectCourseId);
 
-  if (!workout) {
-    console.log('Не удалось загрузить данные по тренировке');
-  }
+  const { progressData } = progressByWorkout || { progressData: [] };
+  const exercisesCount = currentWorkout?.exercises.length || 0;
+  const isProgressMatching = progressData.length === exercisesCount;
 
   const onOpenProgressPop = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -46,28 +48,51 @@ export default function WorkoutPage() {
       <h1 className="text-black text-[60px] font-medium leading-[70px] ">
         {course?.nameRU}
       </h1>
-      <WorkoutVideo workoutSrc={workout?.video} />
+      <WorkoutVideo workoutSrc={currentWorkout?.video} />
       <div className="w-full p-10 rounded-[30px] shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] bg-white ">
         <h2 className="text-black text-[32px] font-normal leading-[38px] ">
-          {workout?.name}
+          {currentWorkout?.name}
         </h2>
         <div className="flex flex-wrap gap-x-[60px] gap-y-[20px] pt-[20px] pb-[40px] ">
-          {progress.map((item) => (
-            <div
-              key={item._id}
-              className="w-[320px] flex flex-col items-start gap-[10px]"
-            >
-              <p className=" text-black text-[17px] font-normal leading-[21px] ">
-                {` ${item.name} ${item.progress}%`}
-              </p>
-              <div className="w-[320px] h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden ">
-                <div
-                  className=" h-full rounded-[50px] bg-[rgba(0,193,255,1)] duration-500 ease-in-out"
-                  style={{ width: `${item?.progress}%` }}
-                ></div>
+          {currentWorkout?.exercises.map((exercise, i) =>
+            !isProgressMatching || i >= progressData.length ? (
+              <div
+                key={exercise._id}
+                className="w-[320px] flex flex-col items-start gap-[10px]"
+              >
+                <p className="text-black text-[17px] font-normal leading-[21px]">{`${exercise.name} (не удалось обработать данные)`}</p>
+                <div className="w-[320px] h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden ">
+                  <div
+                    className="h-full rounded-[50px] bg-[rgba(0,193,255,1)] duration-500 ease-in-out"
+                    style={{ width: '0%' }}
+                  ></div>
+                </div>
               </div>
-            </div>
-          ))}
+            ) : (
+              (() => {
+                const progressCount = progressData[i];
+                const progressPercent = Math.min(
+                  (progressCount / exercise.quantity) * 100,
+                  100,
+                );
+                console.log('progressPercent:', progressPercent);
+                return (
+                  <div
+                    key={exercise._id}
+                    className="w-[320px] flex flex-col items-start gap-[10px]"
+                  >
+                    <p className="text-black text-[17px] font-normal leading-[21px] ">{`${exercise.name} (${progressCount}/${exercise.quantity})`}</p>
+                    <div className="w-[320px] h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden">
+                      <div
+                        className="h-full rounded-[50px] bg-[rgba(0,193,255,1)] duration-500 ease-in-out"
+                        style={{ width: `${progressPercent}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                );
+              })()
+            ),
+          )}
         </div>
         <Button
           onClick={onOpenProgressPop}
@@ -83,3 +108,9 @@ export default function WorkoutPage() {
     </div>
   );
 }
+
+//               <p className=" text-black text-[17px] font-normal leading-[21px] ">
+//                 Список упражнений пуст
+//               </p>
+//             )}
+//           </div>

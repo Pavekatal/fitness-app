@@ -10,9 +10,6 @@ export const useInitAuth = () => {
     const token = localStorage.getItem('token') || '';
     const dataUserFromLS = localStorage.getItem('user');
 
-    console.log('token from initAuth:', token);
-    console.log('dataUserFromLS:', dataUserFromLS);
-
     let currentUser: UserForApiType = {
       email: '',
       _id: '',

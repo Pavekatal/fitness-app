@@ -28,7 +28,27 @@ export type WorkoutType = {
   _id: string;
   name: string;
   video: string;
-  exercises: string[];
+  exercises: {
+    name: string;
+    quantity: number;
+    _id: string;
+  }[];
+};
+
+export type ProgressTypeOfWorkout = {
+  workoutId: string;
+  workoutCompleted: boolean;
+  progressData: number[];
+};
+
+export type ProgressTypeOfCourse = {
+  courseId: string;
+  courseCompleted: boolean;
+  workoutsProgress: {
+    workoutId: string;
+    workoutCompleted: boolean;
+    progressData: number[];
+  }[];
 };
 
 export type ProgressTest = {
@@ -52,7 +72,16 @@ export interface UserForApiType {
   email: string;
   password?: string;
   selectedCourses?: string[];
-  courseProgress?: string[];
+  courseProgress?: {
+    courseId: string;
+    courseCompleted: boolean;
+    workoutsProgress: {
+      workoutId: string;
+      workoutCompleted: boolean;
+      progressData: number[];
+      _id: string;
+    }[];
+  }[];
   createdAt?: string;
   updatedAt?: string;
   __v?: number;
