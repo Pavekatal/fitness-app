@@ -1,6 +1,6 @@
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
-  error: boolean;
+  error?: boolean;
 }
 
 export default function Input({ className = '', error, ...props }: InputProps) {

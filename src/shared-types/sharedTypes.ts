@@ -95,6 +95,10 @@ export type RequestIdCourse = {
   courseId: string;
 };
 
+export type RequestProgressData = {
+  progressData: number[];
+};
+
 export type ResponseLoginType = {
   token: string;
 };

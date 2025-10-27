@@ -5,6 +5,7 @@ import {
   ProgressTypeOfCourse,
   ProgressTypeOfWorkout,
   RequestIdCourse,
+  RequestProgressData,
   ResponseMessageType,
   WorkoutType,
 } from '@/shared-types/sharedTypes';
@@ -89,7 +90,6 @@ export const getProgressByWorkout = async (
       },
     },
   ).then((res) => {
-    console.log('Progress by workout from api:', res.data);
     return res.data;
   });
 };
@@ -106,4 +106,27 @@ export const getProgressByCourse = async (
     console.log('Progress of course from api:', res.data);
     return res.data;
   });
+};
+
+export const addProgress = async (
+  token: string,
+  courseId: string,
+  workoutId: string,
+  progressData: RequestProgressData,
+): Promise<ResponseMessageType> => {
+  return await axios
+    .patch(
+      BASE_URL + `/courses/${courseId}/workouts/${workoutId}`,
+      progressData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': '',
+        },
+      },
+    )
+    .then((res) => {
+      console.log('add progress from api:', res.data);
+      return res.data;
+    });
 };

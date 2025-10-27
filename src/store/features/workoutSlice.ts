@@ -1,6 +1,6 @@
 import {
   CourseType,
-  ProgressTypeOfCourse,
+  // ProgressTypeOfCourse,
   ProgressTypeOfWorkout,
   WorkoutType,
 } from '@/shared-types/sharedTypes';
@@ -12,8 +12,10 @@ type initialStateType = {
   allWorkouts: WorkoutType[];
   currentWorkout: null | WorkoutType;
   selectedWorkout: null | string;
-  allProgress: null | ProgressTypeOfCourse; //
+  // allProgress: ProgressTypeOfCourse;
   progressByWorkout: null | ProgressTypeOfWorkout;
+  openProgressPop: boolean;
+  openCountProgressPop: boolean;
   isLoading: boolean;
   errorMessage: string;
 };
@@ -24,8 +26,10 @@ const initialState: initialStateType = {
   allWorkouts: [],
   currentWorkout: null,
   selectedWorkout: null,
-  allProgress: null,
+  // allProgress: {},
   progressByWorkout: null,
+  openProgressPop: false,
+  openCountProgressPop: false,
   isLoading: false,
   errorMessage: '',
 };
@@ -49,14 +53,20 @@ const workoutSlice = createSlice({
     setSelectedWorkout: (state, action: PayloadAction<string>) => {
       state.selectedWorkout = action.payload;
     },
-    setAllProgress: (state, action: PayloadAction<ProgressTypeOfCourse>) => {
-      state.allProgress = action.payload;
-    },
+    // setAllProgress: (state, action: PayloadAction<ProgressTypeOfCourse>) => {
+    //   state.allProgress = action.payload;
+    // },
     setProgressByWorkout: (
       state,
       action: PayloadAction<ProgressTypeOfWorkout>,
     ) => {
       state.progressByWorkout = action.payload;
+    },
+    setOpenProgressPop: (state, action: PayloadAction<boolean>) => {
+      state.openProgressPop = action.payload;
+    },
+    setOpenCountProgressPop: (state, action: PayloadAction<boolean>) => {
+      state.openCountProgressPop = action.payload;
     },
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
@@ -73,8 +83,10 @@ export const {
   setAllWorkouts,
   setCurrentWorkout,
   setSelectedWorkout,
-  setAllProgress,
+  // setAllProgress,
   setProgressByWorkout,
+  setOpenProgressPop,
+  setOpenCountProgressPop,
   setIsLoading,
   setErrorMessage,
 } = workoutSlice.actions;
