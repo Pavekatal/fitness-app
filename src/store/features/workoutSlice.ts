@@ -1,6 +1,6 @@
 import {
   CourseType,
-  // ProgressTypeOfCourse,
+  ProgressTypeOfCourse,
   ProgressTypeOfWorkout,
   WorkoutType,
 } from '@/shared-types/sharedTypes';
@@ -12,7 +12,7 @@ type initialStateType = {
   allWorkouts: WorkoutType[];
   currentWorkout: null | WorkoutType;
   selectedWorkout: null | string;
-  // allProgress: ProgressTypeOfCourse;
+  allProgress: null | ProgressTypeOfCourse;
   progressByWorkout: null | ProgressTypeOfWorkout;
   openProgressPop: boolean;
   openCountProgressPop: boolean;
@@ -26,7 +26,7 @@ const initialState: initialStateType = {
   allWorkouts: [],
   currentWorkout: null,
   selectedWorkout: null,
-  // allProgress: {},
+  allProgress: null,
   progressByWorkout: null,
   openProgressPop: false,
   openCountProgressPop: false,
@@ -53,9 +53,9 @@ const workoutSlice = createSlice({
     setSelectedWorkout: (state, action: PayloadAction<string>) => {
       state.selectedWorkout = action.payload;
     },
-    // setAllProgress: (state, action: PayloadAction<ProgressTypeOfCourse>) => {
-    //   state.allProgress = action.payload;
-    // },
+    setAllProgress: (state, action: PayloadAction<ProgressTypeOfCourse>) => {
+      state.allProgress = action.payload;
+    },
     setProgressByWorkout: (
       state,
       action: PayloadAction<ProgressTypeOfWorkout>,
@@ -83,7 +83,7 @@ export const {
   setAllWorkouts,
   setCurrentWorkout,
   setSelectedWorkout,
-  // setAllProgress,
+  setAllProgress,
   setProgressByWorkout,
   setOpenProgressPop,
   setOpenCountProgressPop,

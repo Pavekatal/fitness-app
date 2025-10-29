@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import WorkoutItem from '@/components/workout-item/WorkoutItem';
-// import { workouts } from '@/data';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { setSelectedWorkout } from '@/store/features/workoutSlice';
 

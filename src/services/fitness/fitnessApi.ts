@@ -130,3 +130,20 @@ export const addProgress = async (
       return res.data;
     });
 };
+
+export const deleteProgress = async (
+  token: string,
+  courseId: string,
+  workoutId: string,
+): Promise<ResponseMessageType> => {
+  return await axios
+    .delete(BASE_URL + `/courses/${courseId}/workouts/${workoutId}/reset`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log('Res from delete progress api:', res.data);
+      return res.data;
+    });
+};

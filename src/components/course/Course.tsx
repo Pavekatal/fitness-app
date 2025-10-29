@@ -5,18 +5,24 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
+import { useEffect, useRef, useState } from 'react';
 
-import { CourseType } from '@/shared-types/sharedTypes';
+import { CourseType, WorkoutType } from '@/shared-types/sharedTypes';
 import Button from '../button/Button';
 import { bannersCourses } from '@/data';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { deleteCourse } from '@/services/fitness/fitnessApi';
-import { setIsLoading } from '@/store/features/workoutSlice';
+import { deleteCourse, getAllWorkouts } from '@/services/fitness/fitnessApi';
+import {
+  setAllWorkouts,
+  setErrorMessage,
+  setIsLoading,
+} from '@/store/features/workoutSlice';
 import { useAddCourse } from '@/hooks/useAddCourse';
+import { usePercentageProgressCourse } from '@/hooks/useProgressCourse';
 
 interface CourseProp {
   course: CourseType;
-  onWorkoutPop: (
+  onWorkoutPop?: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string,
   ) => void;
@@ -24,15 +30,69 @@ interface CourseProp {
 }
 
 export default function Course({ course, onWorkoutPop }: CourseProp) {
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.workouts);
   const { token } = useAppSelector((state) => state.auth);
+  const [localAllWorkout, setLocalAllWorkout] = useState<WorkoutType[]>([]);
+  const [localError, setLocalError] = useState<string>('');
+  const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
   const isProfile: boolean = pathname.startsWith('/fitness/profile');
   const coverCourse = bannersCourses.find((cover) => cover._id === course._id);
   const { onAddCourse } = useAddCourse();
 
-  // const progressDataCourse = currentUser?.courseProgress
+  useEffect(() => {
+    if (pathname.startsWith('/fitness/profile')) {
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+      }
+
+      debounceTimeout.current = setTimeout(() => {
+        dispatch(setIsLoading(true));
+        getAllWorkouts(course._id, token)
+          .then((res) => {
+            dispatch(setAllWorkouts(res));
+            setLocalAllWorkout(res);
+          })
+          .catch((error) => {
+            if (error instanceof AxiosError) {
+              if (error.response) {
+                dispatch(setErrorMessage(error.response.data));
+                setLocalError(error.response.data);
+              } else if (error.request) {
+                dispatch(
+                  setErrorMessage(
+                    'Похоже, что-то с интернет-соединением. Попробуйте позже',
+                  ),
+                  setLocalError('Ошибка при получении данных'),
+                );
+              } else {
+                dispatch(
+                  setErrorMessage(
+                    'Неизвестная ошибка. Попробуйте перезагрузить страницу',
+                  ),
+                );
+                setLocalError('Неизвестная ошибка');
+              }
+            }
+          })
+          .finally(() => {
+            dispatch(setIsLoading(false));
+          });
+      }, 1500);
+
+      return () => {
+        if (debounceTimeout.current) {
+          clearTimeout(debounceTimeout.current);
+        }
+      };
+    }
+  }, [dispatch, token, course._id, pathname]);
+
+  const percentProgressCourse = usePercentageProgressCourse(
+    course._id,
+    localAllWorkout,
+  );
 
   const valueProgress = (progress: number): string => {
     let textButton = '';
@@ -57,7 +117,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
     e.preventDefault();
 
     if (token) {
-      dispath(setIsLoading(true));
+      dispatch(setIsLoading(true));
       deleteCourse(course._id, token)
         .then((res) => {
           toast.success(res.message);
@@ -79,7 +139,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
           }
         })
         .finally(() => {
-          dispath(setIsLoading(false));
+          dispatch(setIsLoading(false));
         });
     }
   };
@@ -171,23 +231,29 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
               <div className=" flex flex-col gap-10 mt-5">
                 <div className="flex flex-col gap-2.5 items-start">
                   <p className="text-black text-lg font-normal leading-[21px]">
-                    Прогресс {course.difficulty} %
+                    {isLoading
+                      ? 'Получение данных...'
+                      : localError
+                        ? localError
+                        : `Прогресс ${Math.round(percentProgressCourse)} %`}
                   </p>
                   <div className="w-full h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden ">
                     <div
                       className=" h-full rounded-[50px] bg-[rgba(0,193,255,1)] duration-500 ease-in-out"
-                      style={{ width: `${course.difficulty}%` }}
+                      style={{ width: `${percentProgressCourse}%` }}
                     ></div>
                   </div>
                 </div>
-                <Button
-                  onClick={(
-                    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-                  ) => onWorkoutPop(e, course._id)}
-                  className="w-[300px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
-                >
-                  {valueProgress(course.order)}
-                </Button>
+                {onWorkoutPop && (
+                  <Button
+                    onClick={(
+                      e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+                    ) => onWorkoutPop(e, course._id)}
+                    className="w-[300px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
+                  >
+                    {valueProgress(percentProgressCourse)}
+                  </Button>
+                )}
               </div>
             )}
           </div>

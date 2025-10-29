@@ -223,47 +223,6 @@ export default function FitnessLayout(props: { children: ReactNode }) {
     selectCourseId,
   ]);
 
-  //   const coursesUser = allCourses.filter((courses) =>
-  //   currentUser?.selectedCourses?.includes(courses._id),
-  // );
-
-  // Загрузка прогресса по всему курсу
-  // useEffect(() => {
-  //   if (pathname.startsWith('/fitness/profile') && !isLoading) {
-  //     dispatch(setErrorMessage(''));
-  //     if (token && !isLoading) {
-  //       dispatch(setIsLoading(true));
-
-  //       getProgressByCourse(courseId, token)
-  //         .then((res) => {
-  //           dispatch(setAllProgress(res));
-  //         })
-  //         .catch((error) => {
-  //           if (error instanceof AxiosError) {
-  //             if (error.response) {
-  //               dispatch(setErrorMessage(error.response.data));
-  //             } else if (error.request) {
-  //               dispatch(
-  //                 setErrorMessage(
-  //                   'Похоже, что-то с интернет-соединением. Попробуйте позже',
-  //                 ),
-  //               );
-  //             } else {
-  //               dispatch(
-  //                 setErrorMessage(
-  //                   'Неизвестная ошибка. Попробуйте перезагрузить страницу',
-  //                 ),
-  //               );
-  //             }
-  //           }
-  //         })
-  //         .finally(() => {
-  //           dispatch(setIsLoading(false));
-  //         });
-  //     }
-  //   }
-  // }, [pathname, dispatch, token, selectCourseId, isLoading]);
-
   return (
     <div className="ml-[140px] mr-[140px] ">
       <header id="start">

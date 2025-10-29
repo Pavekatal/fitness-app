@@ -35,6 +35,12 @@ export type WorkoutType = {
   }[];
 };
 
+export type ExercisesType = {
+  name: string;
+  quantity: number;
+  _id: string;
+};
+
 export type ProgressTypeOfWorkout = {
   workoutId: string;
   workoutCompleted: boolean;

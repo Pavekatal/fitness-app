@@ -22,9 +22,7 @@ export default function ProfilePage() {
   const { currentUser, token } = useAppSelector((state) => state.auth);
   const { allCourses } = useAppSelector((state) => state.workouts);
   const [openWorkoutPop, setOpenWorkoutPop] = useState<boolean>(false);
-
   const router = useRouter();
-
   const coursesUser = allCourses.filter((courses) =>
     currentUser?.selectedCourses?.includes(courses._id),
   );
