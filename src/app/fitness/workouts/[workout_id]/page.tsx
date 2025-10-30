@@ -1,7 +1,7 @@
 'use client';
 
 import { AxiosError } from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { setErrorMessage, setIsLoading } from '@/store/features/workoutSlice';
@@ -17,24 +17,35 @@ export default function WorkoutPage() {
   const {
     allCourses,
     progressByWorkout,
+    selectedCourse,
     currentWorkout,
     isLoading,
-    errorMessage,
   } = useAppSelector((state) => state.workouts);
   const { token } = useAppSelector((state) => state.auth);
-
   const [openProgressPop, setOpenProgressPop] = useState<boolean>(false);
   const [openCountProgressPop, setOpenCountProgressPop] =
     useState<boolean>(false);
+  const [isStartedWorkout, setIsStartedWorkout] = useState<boolean>(false);
   const [errorAddProgress, setErrorAddProgress] = useState('');
-
-  const selectCourseId = localStorage.getItem('selectCourseId');
+  const selectCourseId = selectedCourse; // localStorage.getItem('selectCourseId');
   const course = allCourses.find((course) => course._id === selectCourseId);
 
   const { progressData } = progressByWorkout || {};
   const checkedProgressData = Array.isArray(progressData) ? progressData : [];
   const exercisesCount = currentWorkout?.exercises.length || 0;
   const isProgressMatching = checkedProgressData.length === exercisesCount;
+  const totalComletedExrcises = progressData?.reduce((sum, i) => sum + i, 0);
+
+  useEffect(() => {
+    if (
+      progressData?.length !== undefined &&
+      totalComletedExrcises !== undefined
+    ) {
+      if (progressData?.length >= 0 && totalComletedExrcises >= 0) {
+        setIsStartedWorkout(true);
+      }
+    }
+  }, [progressData, totalComletedExrcises]);
 
   const onAddProgress = (progressData: RequestProgressData) => {
     if (token && currentWorkout?._id && course) {
@@ -47,11 +58,8 @@ export default function WorkoutPage() {
           if (error instanceof AxiosError) {
             if (error.response) {
               const data = error.response.data;
-              console.log('data message from error', data.message);
               dispatch(setErrorMessage(data.message));
               setErrorAddProgress(data.message);
-              console.log('errorMessage:', errorMessage);
-              console.log('errorAddProgress from page', errorAddProgress);
             } else if (error.request) {
               dispatch(
                 setErrorMessage(
@@ -143,19 +151,28 @@ export default function WorkoutPage() {
             )
           )}
         </div>
-        {currentWorkout?.exercises.length === 0 ? (
-          <Button
-            onClick={onOpenProgressPop}
-            className={`w-[320px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white ${isLoading ? 'cursor-none' : 'cursor-wait'}`}
-          >
-            Заполнить свой прогресс
-          </Button>
+        {!isStartedWorkout ? (
+          currentWorkout?.exercises.length === 0 ? (
+            <Button
+              onClick={onOpenProgressPop}
+              className={`w-[320px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white ${isLoading ? 'cursor-wait' : 'cursor-none'}`}
+            >
+              Заполнить свой прогресс
+            </Button>
+          ) : (
+            <Button
+              onClick={onOpenProgressPop}
+              className="w-[320px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white "
+            >
+              Заполнить свой прогресс
+            </Button>
+          )
         ) : (
           <Button
             onClick={onOpenProgressPop}
-            className="w-[320px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white "
+            className={`w-[320px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white ${isLoading ? 'cursor-wait' : 'cursor-pointer'}`}
           >
-            Заполнить свой прогресс
+            Обновить свой прогресс
           </Button>
         )}
       </div>

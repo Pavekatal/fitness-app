@@ -11,6 +11,7 @@ type initialStateType = {
   currentCourse: null | CourseType;
   allWorkouts: WorkoutType[];
   currentWorkout: null | WorkoutType;
+  selectedCourse: null | string;
   selectedWorkout: null | string;
   allProgress: null | ProgressTypeOfCourse;
   progressByWorkout: null | ProgressTypeOfWorkout;
@@ -25,6 +26,7 @@ const initialState: initialStateType = {
   currentCourse: null,
   allWorkouts: [],
   currentWorkout: null,
+  selectedCourse: null,
   selectedWorkout: null,
   allProgress: null,
   progressByWorkout: null,
@@ -49,6 +51,9 @@ const workoutSlice = createSlice({
     },
     setCurrentWorkout: (state, action: PayloadAction<WorkoutType>) => {
       state.currentWorkout = action.payload;
+    },
+    setSelectedCourse: (state, action: PayloadAction<string>) => {
+      state.selectedCourse = action.payload;
     },
     setSelectedWorkout: (state, action: PayloadAction<string>) => {
       state.selectedWorkout = action.payload;
@@ -82,6 +87,7 @@ export const {
   setCurrentCourse,
   setAllWorkouts,
   setCurrentWorkout,
+  setSelectedCourse,
   setSelectedWorkout,
   setAllProgress,
   setProgressByWorkout,

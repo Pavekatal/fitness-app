@@ -77,7 +77,7 @@ export default function ProgressPop({
               key={exercise._id}
               className="flex flex-col items-start gap-[10px] mb-[1px]"
             >
-              <p className=" w-[320px] h-10 text-black text-[18px] font-normal leading-[19px] ">
+              <p className=" w-[320px] text-black text-[18px] font-normal leading-[19px] ">
                 Сколько раз вы сделали {exercise.name.toLowerCase()}?
               </p>
 

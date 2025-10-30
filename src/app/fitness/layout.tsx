@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { AxiosError } from 'axios';
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
@@ -20,6 +20,7 @@ import {
   setErrorMessage,
   setIsLoading,
   setProgressByWorkout,
+  setSelectedCourse,
 } from '@/store/features/workoutSlice';
 import Header from '@/components/header/Header';
 import { getUserData } from '@/services/auth/authApi';
@@ -30,10 +31,22 @@ export default function FitnessLayout(props: { children: ReactNode }) {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state) => state.auth);
   const { allCourses, isLoading } = useAppSelector((state) => state.workouts);
+  const [selectCourseId, setSelectCourseId] = useState<string | null>(null);
   const pathname = usePathname();
   const paramsCourse = useParams<{ course_id: string }>();
   const paramsWorkout = useParams<{ workout_id: string }>();
-  const selectCourseId = localStorage.getItem('selectCourseId');
+
+  useEffect(() => {
+    dispatch(setErrorMessage(''));
+  }, [pathname, dispatch]);
+
+  useEffect(() => {
+    const courseId = localStorage.getItem('selectCourseId');
+    if (courseId) {
+      dispatch(setSelectedCourse(courseId));
+    }
+    setSelectCourseId(courseId);
+  }, [dispatch]);
 
   useInitAuth();
 
