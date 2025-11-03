@@ -13,7 +13,7 @@ export const useInitAuth = () => {
     let currentUser: UserForApiType = {
       email: '',
       _id: '',
-      courseProgress: [''],
+      courseProgress: [],
       selectedCourses: [''],
     };
 

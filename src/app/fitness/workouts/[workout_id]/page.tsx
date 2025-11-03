@@ -26,8 +26,9 @@ export default function WorkoutPage() {
   const [openCountProgressPop, setOpenCountProgressPop] =
     useState<boolean>(false);
   const [isStartedWorkout, setIsStartedWorkout] = useState<boolean>(false);
+  const [successAddProgress, setSuccessAddProgress] = useState('');
   const [errorAddProgress, setErrorAddProgress] = useState('');
-  const selectCourseId = selectedCourse; // localStorage.getItem('selectCourseId');
+  const selectCourseId = selectedCourse;
   const course = allCourses.find((course) => course._id === selectCourseId);
 
   const { progressData } = progressByWorkout || {};
@@ -52,6 +53,7 @@ export default function WorkoutPage() {
       dispatch(setIsLoading(true));
       addProgress(token, course._id, currentWorkout?._id, progressData)
         .then((res) => {
+          setSuccessAddProgress(res.message);
           console.log('result add progress data', res);
         })
         .catch((error) => {
@@ -185,7 +187,10 @@ export default function WorkoutPage() {
           />
         )}
         {openCountProgressPop && (
-          <CountProgressPop errorResult={errorAddProgress} />
+          <CountProgressPop
+            errorResult={errorAddProgress}
+            successResult={successAddProgress}
+          />
         )}
       </div>
     </div>

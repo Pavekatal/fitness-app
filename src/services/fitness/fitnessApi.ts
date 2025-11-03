@@ -137,11 +137,16 @@ export const deleteProgress = async (
   workoutId: string,
 ): Promise<ResponseMessageType> => {
   return await axios
-    .delete(BASE_URL + `/courses/${courseId}/workouts/${workoutId}/reset`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    .patch(
+      BASE_URL + `/courses/${courseId}/workouts/${workoutId}/reset`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': '',
+        },
       },
-    })
+    )
     .then((res) => {
       console.log('Res from delete progress api:', res.data);
       return res.data;

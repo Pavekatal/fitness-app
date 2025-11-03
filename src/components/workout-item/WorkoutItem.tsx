@@ -1,39 +1,32 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { WorkoutType } from '@/shared-types/sharedTypes';
-import { useAppSelector } from '@/store/store';
+import { ProgressTypeOfCourse, WorkoutType } from '@/shared-types/sharedTypes';
 
 type WorkoutItemProp = {
   workout: WorkoutType;
+  courseProgress: ProgressTypeOfCourse | undefined;
   isSelected: boolean;
   onSelect: () => void;
 };
 
 export default function WorkoutItem({
   workout,
+  courseProgress,
   isSelected,
   onSelect,
 }: WorkoutItemProp) {
-  const { currentUser } = useAppSelector((state) => state.auth);
-  const { selectedCourse } = useAppSelector((state) => state.workouts);
-  const [workoutСompleted, setWorkoutCompleted] = useState(false);
+  // const [workoutCompleted, setWorkoutCompleted] = useState<boolean>(false);
   const bgSelectedWorkout = isSelected ? 'bg-[rgba(247,247,247,1)]' : null;
   const titleParts = workout.name.split('/').map((part) => part.trim());
   const mainTitle = titleParts[0];
   const subTitle =
     titleParts.length >= 2 ? `${titleParts[1]} / ${titleParts[2]}` : null;
-  const courseProgress = currentUser?.courseProgress?.find(
-    (progress) => progress.courseId === selectedCourse,
-  );
-  const workoutProgress = courseProgress?.workoutsProgress.find(
+
+  const workoutProgressItem = courseProgress?.workoutsProgress.find(
     (work) => work.workoutId === workout._id,
   );
-
-  useEffect(() => {
-    if (workoutProgress) setWorkoutCompleted(workoutProgress?.workoutCompleted);
-  }, [workoutProgress]);
+  const workoutCompleted = workoutProgressItem?.workoutCompleted;
 
   return (
     <>
@@ -41,7 +34,7 @@ export default function WorkoutItem({
         <div
           className={`border-b-[1px] border-solid border-[#C4C4C4]  pb-[9px] flex items-center gap-[10px] ${bgSelectedWorkout} `}
         >
-          {workoutСompleted ? (
+          {workoutCompleted ? (
             <div className="w-6 h-6 p-0.5">
               <Image
                 width={24}

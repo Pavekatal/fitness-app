@@ -198,7 +198,7 @@ export default function FitnessLayout(props: { children: ReactNode }) {
 
   // Загрузка прогресса по тренировке
   useEffect(() => {
-    if (pathname.startsWith('/fitness/workouts') && !isLoading) {
+    if (pathname.startsWith('/fitness/workouts')) {
       dispatch(setErrorMessage(''));
       if (token && selectCourseId) {
         getProgressByWorkout(token, selectCourseId, paramsWorkout.workout_id)
