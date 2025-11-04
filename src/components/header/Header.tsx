@@ -10,7 +10,6 @@ import { useAppSelector } from '@/store/store';
 
 export default function Header() {
   const { currentUser } = useAppSelector((state) => state.auth);
-
   const [openUserPop, setOpenUserPop] = useState<boolean>(false);
 
   const onOpenUserPop = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -18,7 +17,7 @@ export default function Header() {
     setOpenUserPop(!openUserPop);
   };
 
-  const onOverlayClickClick = () => {
+  const onOverlayClick = () => {
     if (openUserPop) {
       setOpenUserPop(false);
     }
@@ -51,7 +50,7 @@ export default function Header() {
               {currentUser.email}
             </p>
           </div>
-          <div onClick={onOverlayClickClick}>{openUserPop && <UserPop />}</div>
+          <div>{openUserPop && <UserPop onClose={onOverlayClick} />}</div>
         </div>
       )}
     </div>

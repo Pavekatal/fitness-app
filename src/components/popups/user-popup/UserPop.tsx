@@ -1,15 +1,44 @@
 'use client';
 
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useRef } from 'react';
+
 import Button from '@/components/button/Button';
 import { logout } from '@/store/features/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
-export default function UserPop() {
+type UserPopProps = {
+  onClose: () => void;
+};
+
+export default function UserPop({ onClose }: UserPopProps) {
   const router = useRouter();
+  const ref = useRef<HTMLDivElement | null>(null);
+  const pathname = usePathname();
+  const refPathname = useRef<string | null>(null);
   const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    const onClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('mousedown', onClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', onClickOutside);
+    };
+  }, [onClose]);
+
+  useEffect(() => {
+    if (refPathname.current && refPathname.current !== pathname) {
+      onClose();
+    }
+    refPathname.current = pathname;
+  }, [pathname, onClose]);
 
   const onLogout = () => {
     dispatch(logout());
@@ -23,6 +52,7 @@ export default function UserPop() {
   return (
     <div
       onClick={onFormClick}
+      ref={ref}
       className="absolute mt-6 right-0 w-[266px] h-[258px] rounded-[30px] p-7.5 bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] flex flex-col items-center gap-8.5 z-100"
     >
       <div className="flex flex-col items-center gap-2.5">
