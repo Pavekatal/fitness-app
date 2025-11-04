@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
@@ -11,7 +10,7 @@ import { CourseType, WorkoutType } from '@/shared-types/sharedTypes';
 import Button from '../button/Button';
 import { bannersCourses } from '@/data';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { deleteCourse, getAllWorkouts } from '@/services/fitness/fitnessApi';
+import { getAllWorkouts } from '@/services/fitness/fitnessApi';
 import {
   setAllWorkouts,
   setErrorMessage,
@@ -19,6 +18,7 @@ import {
 } from '@/store/features/workoutSlice';
 import { useAddCourse } from '@/hooks/useAddCourse';
 import { usePercentageProgressCourse } from '@/hooks/useProgressCourse';
+import { useDeleteCourse } from '@/hooks/useDeleteCourse';
 
 interface CourseProp {
   course: CourseType;
@@ -40,6 +40,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
   const isProfile: boolean = pathname.startsWith('/fitness/profile');
   const coverCourse = bannersCourses.find((cover) => cover._id === course._id);
   const { onAddCourse } = useAddCourse();
+  const { onDeleteCourse } = useDeleteCourse();
 
   useEffect(() => {
     if (pathname.startsWith('/fitness/profile')) {
@@ -110,40 +111,6 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
     return textButton;
   };
 
-  const onDeleteCourse = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    if (token) {
-      dispatch(setIsLoading(true));
-      deleteCourse(course._id, token)
-        .then((res) => {
-          toast.success(res.message);
-          window.location.reload();
-        })
-        .catch((error) => {
-          if (error instanceof AxiosError) {
-            if (error.response) {
-              toast.error(error.response.data);
-            } else if (error.request) {
-              toast.error(
-                'Похоже, что-то с интернет-соединением. Попробуйте позже',
-              );
-            } else {
-              toast.error(
-                'Неизвестная ошибка. Попробуйте перезагрузить страницу',
-              );
-            }
-          }
-        })
-        .finally(() => {
-          dispatch(setIsLoading(false));
-        });
-    }
-  };
-
   return (
     <>
       <Link href={`/fitness/courses/${course._id}`}>
@@ -174,7 +141,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
               </button>
             ) : (
               <button
-                onClick={onDeleteCourse}
+                onClick={(e) => onDeleteCourse(e, course._id)}
                 className="absolute top-[20px] rounded-full right-[20px] bg-none p-0 border-none cursor-pointer w-[32px] h-[32px] hover:scale-[1.1] hover:shadow-xl"
               >
                 <Image

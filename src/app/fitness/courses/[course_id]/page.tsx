@@ -9,13 +9,21 @@ import Button from '@/components/button/Button';
 import { useAppSelector } from '@/store/store';
 import ErrorMessageContent from '@/components/error-message/ErrorMessageContent';
 import { useAddCourse } from '@/hooks/useAddCourse';
+import { useDeleteCourse } from '@/hooks/useDeleteCourse';
 
 export default function CoursePage() {
   const { currentCourse, errorMessage } = useAppSelector(
     (state) => state.workouts,
   );
-  const { token } = useAppSelector((state) => state.auth);
+  const { token, currentUser } = useAppSelector((state) => state.auth);
   const { onAddCourse } = useAddCourse();
+  const { onDeleteCourse } = useDeleteCourse();
+  const bannerCourse: BannerCourseType | undefined = bannersCourses.find(
+    (banner) => banner._id === currentCourse?._id,
+  );
+  const isSelectedCourses = currentUser?.selectedCourses?.find(
+    (courseId) => courseId === currentCourse?._id,
+  );
 
   const onAdd = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (currentCourse) {
@@ -23,9 +31,11 @@ export default function CoursePage() {
     }
   };
 
-  const bannerCourse: BannerCourseType | undefined = bannersCourses.find(
-    (banner) => banner._id === currentCourse?._id,
-  );
+  const onDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (currentCourse) {
+      onDeleteCourse(e, currentCourse?._id);
+    }
+  };
 
   return (
     <>
@@ -100,24 +110,30 @@ export default function CoursePage() {
                   <li className="pb-[4px]">помогают противостоять стрессам</li>
                 </ul>
                 {!token ? (
-                  <Link href="/auth/sign-in">
-                    <Button className="w-[437px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px] cursor-pointer hover:bg-[#C6FF00] focus:bg-black focus:text-white">
-                      Войдите, чтобы добавить курс
-                    </Button>
+                  <Link
+                    href="/auth/sign-in"
+                    className="w-[437px] px-6.5 py-4 rounded-[46px] bg-[#BCEC30] text-black text-lg font-normal leading-[21px] text-center cursor-pointer hover:bg-[#C6FF00] focus:bg-black focus:text-white"
+                  >
+                    Войдите, чтобы добавить курс
                   </Link>
-                ) : (
+                ) : !isSelectedCourses ? (
                   <Button
                     onClick={onAdd}
                     className="w-[437px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px] cursor-pointer hover:bg-[#C6FF00] focus:bg-black focus:text-white"
                   >
                     Добавить курс
                   </Button>
+                ) : (
+                  <Button
+                    onClick={onDelete}
+                    className="w-[437px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px] cursor-pointer hover:bg-[#C6FF00] focus:bg-black focus:text-white"
+                  >
+                    Удалить курс
+                  </Button>
                 )}
-
                 <div className="flex-1"></div>
               </div>
             </div>
-
             <Image
               className="absolute z-50 right-[57px] top-[87px] scale-[1.4] "
               width={520}

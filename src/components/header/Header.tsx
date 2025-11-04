@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
-import Button from '../button/Button';
 import Logo from '../logo/Logo';
 import UserPop from '../popups/user-popup/UserPop';
 import { useAppSelector } from '@/store/store';
@@ -36,10 +35,11 @@ export default function Header() {
       </div>
       {!currentUser ? (
         <div>
-          <Link href="/auth/sign-in">
-            <Button className="w-[103px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] font-normal leading-[21px] hover:bg-[#C6FF00]">
-              Войти
-            </Button>
+          <Link
+            href="/auth/sign-in"
+            className="w-[103px] bg-[#BCEC30] px-[26px] py-[16px] rounded-[46px] text-[rgba(0, 0, 0, 1)] text-[18px] font-normal leading-[19px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
+          >
+            Войти
           </Link>
         </div>
       ) : (
