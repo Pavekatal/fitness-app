@@ -9,15 +9,18 @@ import {
   setIsLoading,
 } from '@/store/features/workoutSlice';
 import { useAppDispatch } from '@/store/store';
+import { useCallback } from 'react';
+import { WorkoutType } from '@/shared-types/sharedTypes';
 
 export const useAllWorkouts = () => {
   const dispatch = useAppDispatch();
 
-  const fetchAllWorkouts = (courseId: string, token: string) => {
-    if (courseId) {
-      getAllWorkouts(courseId, token)
+  const fetchAllWorkouts = useCallback(
+    (courseId: string, token: string): Promise<WorkoutType[]> => {
+      return getAllWorkouts(courseId, token)
         .then((res) => {
           dispatch(setAllWorkouts(res));
+          return res;
         })
         .catch((error) => {
           if (error instanceof AxiosError) {
@@ -30,19 +33,21 @@ export const useAllWorkouts = () => {
                 ),
               );
             } else {
-              setErrorMessage(
-                'Неизвестная ошибка. Попробуйте перезагрузить страницу',
+              dispatch(
+                setErrorMessage(
+                  'Неизвестная ошибка. Попробуйте перезагрузить страницу',
+                ),
               );
             }
           }
+          return [];
         })
         .finally(() => {
           dispatch(setIsLoading(false));
         });
-    } else {
-      dispatch(setErrorMessage('Не удалось получить ид курса'));
-    }
-  };
+    },
+    [dispatch],
+  );
 
   return { fetchAllWorkouts };
 };

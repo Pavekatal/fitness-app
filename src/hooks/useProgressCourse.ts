@@ -15,19 +15,39 @@ export const usePercentageProgressCourse = (
   if (!courseProgress) return 0;
 
   const { workoutsProgress } = courseProgress;
-  const totalWorkouts = allWorkouts.length;
 
-  let completedCount = 0;
+  let totalExercises = 0;
+  let totalCompletedReps = 0;
+
   for (const workout of allWorkouts) {
+    const totalRepsWorkouts = workout.exercises.reduce(
+      (sum, reps) => sum + reps.quantity,
+      0,
+    );
+
+    totalExercises += totalRepsWorkouts;
+
     const progress = workoutsProgress.find(
       (work) => work.workoutId === workout._id,
     );
-    if (progress && progress.workoutCompleted) {
-      completedCount++;
+
+    if (progress && progress.progressData) {
+      const completedRepsInWorkout = progress.progressData.reduce(
+        (sum, rep) => sum + rep,
+        0,
+      );
+
+      totalCompletedReps += completedRepsInWorkout;
     }
   }
 
+  console.log(
+    'totalCompletedReps and totalExercises',
+    totalCompletedReps,
+    totalExercises,
+  );
+
   const progressPercent =
-    totalWorkouts === 0 ? 0 : (completedCount / totalWorkouts) * 100;
+    totalExercises === 0 ? 0 : (totalCompletedReps / totalExercises) * 100;
   return progressPercent;
 };

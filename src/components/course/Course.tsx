@@ -3,22 +3,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { AxiosError } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
 import { CourseType, WorkoutType } from '@/shared-types/sharedTypes';
 import Button from '../button/Button';
 import { bannersCourses } from '@/data';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { getAllWorkouts } from '@/services/fitness/fitnessApi';
-import {
-  setAllWorkouts,
-  setErrorMessage,
-  setIsLoading,
-} from '@/store/features/workoutSlice';
+import { setIsLoading } from '@/store/features/workoutSlice';
 import { useAddCourse } from '@/hooks/useAddCourse';
 import { usePercentageProgressCourse } from '@/hooks/useProgressCourse';
 import { useDeleteCourse } from '@/hooks/useDeleteCourse';
+import { useAllWorkouts } from '@/hooks/useAllWorkouts';
 
 interface CourseProp {
   course: CourseType;
@@ -31,14 +26,14 @@ interface CourseProp {
 
 export default function Course({ course, onWorkoutPop }: CourseProp) {
   const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((state) => state.workouts);
+  const { isLoading, errorMessage } = useAppSelector((state) => state.workouts);
   const { token } = useAppSelector((state) => state.auth);
   const [localAllWorkout, setLocalAllWorkout] = useState<WorkoutType[]>([]);
-  const [localError, setLocalError] = useState<string>('');
   const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
   const isProfile: boolean = pathname.startsWith('/fitness/profile');
   const coverCourse = bannersCourses.find((cover) => cover._id === course._id);
+  const { fetchAllWorkouts } = useAllWorkouts();
   const { onAddCourse } = useAddCourse();
   const { onDeleteCourse } = useDeleteCourse();
 
@@ -50,36 +45,11 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
 
       debounceTimeout.current = setTimeout(() => {
         dispatch(setIsLoading(true));
-        getAllWorkouts(course._id, token)
-          .then((res) => {
-            dispatch(setAllWorkouts(res));
+        if (course?._id && fetchAllWorkouts) {
+          fetchAllWorkouts(course._id, token).then((res) => {
             setLocalAllWorkout(res);
-          })
-          .catch((error) => {
-            if (error instanceof AxiosError) {
-              if (error.response) {
-                dispatch(setErrorMessage(error.response.data));
-                setLocalError(error.response.data);
-              } else if (error.request) {
-                dispatch(
-                  setErrorMessage(
-                    'Похоже, что-то с интернет-соединением. Попробуйте позже',
-                  ),
-                  setLocalError('Ошибка при получении данных'),
-                );
-              } else {
-                dispatch(
-                  setErrorMessage(
-                    'Неизвестная ошибка. Попробуйте перезагрузить страницу',
-                  ),
-                );
-                setLocalError('Неизвестная ошибка');
-              }
-            }
-          })
-          .finally(() => {
-            dispatch(setIsLoading(false));
           });
+        }
       }, 1500);
 
       return () => {
@@ -88,7 +58,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
         }
       };
     }
-  }, [dispatch, token, course._id, pathname]);
+  }, [dispatch, token, course._id, pathname, fetchAllWorkouts]);
 
   const percentProgressCourse = usePercentageProgressCourse(
     course._id,
@@ -200,8 +170,8 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
                   <p className="text-black text-lg font-normal leading-[21px]">
                     {isLoading
                       ? 'Получение данных...'
-                      : localError
-                        ? localError
+                      : errorMessage
+                        ? errorMessage
                         : `Прогресс ${Math.round(percentProgressCourse)} %`}
                   </p>
                   <div className="w-full h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden ">

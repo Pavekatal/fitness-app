@@ -37,15 +37,17 @@ export default function WorkoutItem({
           {workoutCompleted ? (
             <div className="w-6 h-6 p-0.5">
               <Image
-                width={24}
-                height={24}
+                width={20}
+                height={20}
                 src="/img/checked-workout.svg"
                 alt="checked-workout.svg"
                 className="h-5 w-5"
               />
             </div>
           ) : (
-            <div className="w-5 h-5 p-0.5 rounded-[50px] border border-solid border-black"></div>
+            <div className="p-0.5">
+              <div className="w-5 h-5 rounded-[50px] border border-solid border-black"></div>
+            </div>
           )}
           <div className="flex flex-col  gap-[10px]">
             <h4 className="text-black text-[24px] font-normal leading-[26px] ">
