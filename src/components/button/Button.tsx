@@ -12,7 +12,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`h-[52px] rounded-[46px] outline-none border-none ${className} cursor-pointer`}
+      className={`md:h-[52px] rounded-[46px] outline-none border-none ${className} cursor-pointer`}
       {...props}
     >
       {children}

@@ -41,12 +41,6 @@ export const usePercentageProgressCourse = (
     }
   }
 
-  console.log(
-    'totalCompletedReps and totalExercises',
-    totalCompletedReps,
-    totalExercises,
-  );
-
   const progressPercent =
     totalExercises === 0 ? 0 : (totalCompletedReps / totalExercises) * 100;
   return progressPercent;

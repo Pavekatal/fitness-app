@@ -50,15 +50,15 @@ export default function WorkoutItem({
             </div>
           )}
           <div className="flex flex-col  gap-[10px]">
-            <h4 className="text-black text-[24px] font-normal leading-[26px] ">
+            <h4 className="text-black text-[18px] md:text-[24px] font-normal leading-[19px] md:leading-[26px] ">
               {mainTitle}
             </h4>
             {subTitle ? (
-              <p className="text-black text-[16px] font-normal leading-[18px] ">
+              <p className="text-black text-[14px] md:text-[16px] font-normal leading-[16px] md:leading-[18px] ">
                 {subTitle}
               </p>
             ) : (
-              <p className=" text-black text-[16px] font-normal leading-[18px] "></p>
+              <p className=" text-black text-[14px] md:text-[16px] font-normal leading-[16px] md:leading-[18px] "></p>
             )}
           </div>
         </div>

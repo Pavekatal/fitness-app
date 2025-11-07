@@ -101,18 +101,18 @@ export default function WorkoutPop() {
       />
       <div
         onClick={onFormClick}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-115 h-[609px] rounded-[30px] bg-white p-10 shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] flex flex-col z-50"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-[343px] md:min-w-115 max-h-[585px] md:h-[609px] rounded-[30px] bg-white p-[30px] md:p-10 shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] flex flex-col z-50"
       >
         <h2 className="text-black text-[32px] font-normal leading-[38px]">
           Выберите тренировку
         </h2>
-        <div className="h-[360px] mt-[48px] mb-[34px] flex workoutcontent">
+        <div className="h-[360px] mt-[34px] md:mt-[48px] mb-[34px] flex workoutcontent">
           {isLoading ? (
-            <h4 className="text-black text-[24px] font-normal leading-[26px] ">
+            <h4 className="text-black text-[18px] md:text-[24px] font-normal leading-[21px] md:leading-[26px] ">
               Тренировки загружаются ...
             </h4>
           ) : errorMessage ? (
-            <h4 className="text-black text-[24px] font-normal leading-[28px] w-[380px] text-center ">
+            <h4 className="text-black text-[18px] md:text-[24px] font-normal leading-[21px] md:leading-[28px] w-[283px] md:w-[380px] text-center ">
               {errorMessage}
             </h4>
           ) : (
@@ -135,14 +135,14 @@ export default function WorkoutPop() {
           courseCompleted ? (
             <Button
               onClick={onDeleteProgress}
-              className="w-[380px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
+              className="w-[283px] md:w-[380px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
             >
               Удалить прогресс
             </Button>
           ) : (
             <Link
               href={`/fitness/workouts/${selectedWorkout}`}
-              className="w-[380px] h-[52px] rounded-[46px] px-[26px] py-[16px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] text-center font-normal leading-[21px] cursor-pointer"
+              className="w-[283px] md:w-[380px] h-[52px] rounded-[46px] px-[26px] py-[16px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] text-center font-normal leading-[21px] cursor-pointer"
             >
               Начать
             </Link>
@@ -150,14 +150,14 @@ export default function WorkoutPop() {
         ) : currentStatusWorkout === 'delete' ? (
           <Button
             onClick={onDeleteProgress}
-            className="w-[380px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
+            className="w-[283px] md:w-[380px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
           >
             Удалить прогресс
           </Button>
         ) : (
           <Link
             href={`/fitness/workouts/${selectedWorkout}`}
-            className="w-[380px] h-[52px] rounded-[46px] px-[26px] py-[16px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] text-center font-normal leading-[21px] cursor-pointer"
+            className="w-[283px] md:w-[380px] h-[52px] rounded-[46px] px-[26px] py-[16px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] text-center font-normal leading-[21px] cursor-pointer"
           >
             Начать
           </Link>

@@ -66,18 +66,18 @@ export default function ProgressPop({
       />
       <div
         onClick={onFormClick}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[426px] h-[596px] p-10 rounded-[30px] shadow-[0p_4px_67px_-12px_rgba(0,0,0,0.13)] bg-white z-50"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 md:-translate-y-1/2 max-w-[343px] md:max-w-[426px] h-[596px] p-10 rounded-[30px] shadow-[0p_4px_67px_-12px_rgba(0,0,0,0.13)] bg-white z-50"
       >
         <h2 className="text-black text-[32px]  font-normal leading-[38px]">
           Мой прогресс
         </h2>
-        <div className="flex flex-col w-[346px] h-[347px] items-start gap-[20px] mt-[47px] mb-[34px] pr-5 workoutlist">
+        <div className="flex flex-col w-[346px] h-[347px] items-start gap-[20px] mt-[34px] md:mt-[47px] mb-[34px] pr-5 workoutlist">
           {currentWorkout?.exercises.map((exercise, i) => (
             <div
               key={exercise._id}
               className="flex flex-col items-start gap-[10px] mb-[1px]"
             >
-              <p className=" w-[320px] text-black text-[18px] font-normal leading-[19px] ">
+              <p className="w-[237px] md:w-[320px] text-black text-[16px] md:text-[18px] font-normal leading-[19px] ">
                 Сколько раз вы сделали {exercise.name.toLowerCase()}?
               </p>
 
@@ -88,14 +88,14 @@ export default function ProgressPop({
                 value={String(dataFieldProgress[i] || 0)}
                 type="number"
                 placeholder={`${progressData[i] !== undefined ? progressData[i] : 0}`}
-                className="w-[320px] h-[52px]"
+                className="w-[237px] md:w-[320px] h-[47px] md:h-[52px]"
               />
             </div>
           ))}
         </div>
         <Button
           onClick={onSaveProgress}
-          className={`w-[346px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white ${isLoading ? 'cursor-wait' : 'cursor-pointer'}`}
+          className={`w-[263px] md:w-[346px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white ${isLoading ? 'cursor-wait' : 'cursor-pointer'}`}
         >
           Сохранить
         </Button>

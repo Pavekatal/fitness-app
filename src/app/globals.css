@@ -49,11 +49,13 @@ button {
 
   .workoutlist {
     width: max-content;
-    overflow-y: auto;
+    overflow-y: scroll;
+    /* overflow-y: auto; */
   }
 
   .workoutlist::-webkit-scrollbar {
     width: 6px;
+    /* height: 116px; */
   }
 
   .workoutlist::-webkit-scrollbar-track {
@@ -64,5 +66,16 @@ button {
   .workoutlist::-webkit-scrollbar-thumb {
     background-color: black;
     border-radius: 10px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .profile::after {
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid rgba(0, 0, 0, 1);
+    border-bottom: 2px solid rgba(0, 0, 0, 1);
+    transform: rotate(-45deg);
+    padding: 0;
+    margin: -6px 0 0 10px;
   }
 }

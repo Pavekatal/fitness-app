@@ -1,6 +1,7 @@
 'use client';
 
 import { AxiosError } from 'axios';
+import { useCallback } from 'react';
 
 import { getAllWorkouts } from '@/services/fitness/fitnessApi';
 import {
@@ -9,7 +10,6 @@ import {
   setIsLoading,
 } from '@/store/features/workoutSlice';
 import { useAppDispatch } from '@/store/store';
-import { useCallback } from 'react';
 import { WorkoutType } from '@/shared-types/sharedTypes';
 
 export const useAllWorkouts = () => {

@@ -98,16 +98,19 @@ export default function WorkoutPage() {
   };
 
   return (
-    <div className="flex flex-col gap-10 items-start mb-[260px] ">
-      <h1 className="text-black text-[60px] font-medium leading-[70px] ">
-        {course?.nameRU}
-      </h1>
+    <div className="flex flex-col gap-6 md:gap-10 items-center md:items-start mb-10 md:mb-[260px] ">
+      <div className="flex flex-col items-start w-full">
+        <h1 className="text-black text-[24px] md:text-[60px] font-medium leading-[28px] md:leading-[70px] ">
+          {course?.nameRU}
+        </h1>
+      </div>
+
       <WorkoutVideo workoutSrc={currentWorkout?.video} />
-      <div className="w-full p-10 rounded-[30px] shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] bg-white ">
+      <div className="w-[343px] md:w-full p-[30px] md:p-10 rounded-[30px] shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] bg-white ">
         <h2 className="text-black text-[32px] font-normal leading-[38px] ">
           {currentWorkout?.name}
         </h2>
-        <div className="flex flex-wrap gap-x-[60px] gap-y-[20px] pt-[20px] pb-[40px] ">
+        <div className="flex flex-wrap gap-x-[60px] gap-y-5 mt-5 mb-10 ">
           {currentWorkout?.exercises.length === 0 ? (
             <p className=" text-black text-[17px] font-normal leading-[21px] ">
               Список упражнений по данной тренировке пуст
@@ -117,10 +120,10 @@ export default function WorkoutPage() {
               !isProgressMatching || i >= checkedProgressData.length ? (
                 <div
                   key={exercise._id}
-                  className="w-[320px] flex flex-col items-start gap-[10px]"
+                  className="w-[283px] md:w-[320px] flex flex-col items-start gap-[10px]"
                 >
                   <p className="text-black text-[17px] font-normal leading-[21px]">{`${exercise.name} ${isLoading ? 'данные загружаются...' : '0%'} `}</p>
-                  <div className="w-[320px] h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden ">
+                  <div className="w-[283px] md:w-[320px] h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden ">
                     <div
                       className="h-full rounded-[50px] bg-[rgba(0,193,255,1)] duration-500 ease-in-out"
                       style={{ width: '0%' }}
@@ -137,10 +140,10 @@ export default function WorkoutPage() {
                   return (
                     <div
                       key={exercise._id}
-                      className="w-[320px] flex flex-col items-start gap-[10px]"
+                      className="w-[283px] md:w-[320px] flex flex-col items-start gap-[10px]"
                     >
                       <p className="text-black text-[17px] font-normal leading-[21px] ">{`${exercise.name} (${progressCount}/${exercise.quantity})`}</p>
-                      <div className="w-[320px] h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden">
+                      <div className="w-[283px] md:w-[320px] h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden">
                         <div
                           className="h-full rounded-[50px] bg-[rgba(0,193,255,1)] duration-500 ease-in-out"
                           style={{ width: `${progressPercent}%` }}
@@ -157,14 +160,14 @@ export default function WorkoutPage() {
           currentWorkout?.exercises.length === 0 ? (
             <Button
               onClick={onOpenProgressPop}
-              className={`w-[320px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white ${isLoading ? 'cursor-wait' : 'cursor-none'}`}
+              className={`w-[283px] md:w-[320px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white ${isLoading ? 'cursor-wait' : 'cursor-none'}`}
             >
               Заполнить свой прогресс
             </Button>
           ) : (
             <Button
               onClick={onOpenProgressPop}
-              className="w-[320px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white "
+              className="w-[283px] md:w-[320px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white "
             >
               Заполнить свой прогресс
             </Button>
@@ -172,7 +175,7 @@ export default function WorkoutPage() {
         ) : (
           <Button
             onClick={onOpenProgressPop}
-            className={`w-[320px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white ${isLoading ? 'cursor-wait' : 'cursor-pointer'}`}
+            className={`w-[283px] md:w-[320px] px-6.5 py-4 bg-[#BCEC30] text-black text-lg font-normal leading-[21px]  hover:bg-[#C6FF00] focus:bg-black focus:text-white ${isLoading ? 'cursor-wait' : 'cursor-pointer'}`}
           >
             Обновить свой прогресс
           </Button>

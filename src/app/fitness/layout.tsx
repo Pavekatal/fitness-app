@@ -237,11 +237,11 @@ export default function FitnessLayout(props: { children: ReactNode }) {
   ]);
 
   return (
-    <div className="ml-[140px] mr-[140px] ">
+    <div className="ml-4 md:ml-[140px] mr-4 md:mr-[140px] ">
       <header id="start">
         <Header />
       </header>
-      <main className="mt-[60px]">{props.children}</main>
+      <main className="mt-10 md:mt-[60px]">{props.children}</main>
     </div>
   );
 }

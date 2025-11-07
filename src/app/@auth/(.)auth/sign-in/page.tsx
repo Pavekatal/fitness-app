@@ -24,10 +24,10 @@ export default function SignInModal() {
       <div onClick={onOverlayClick} className="absolute inset-0 bg-black/20 " />
       <div
         onClick={onFormClick}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[360px]"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[343px] md:w-[360px]"
       >
         {' '}
-        <div className="w-[360px] bg-white rounded-[30px] p-10 shadow-xl">
+        <div className="w-[343px] md:w-[360px] bg-white rounded-[30px] p-10 shadow-xl">
           <AuthForm isSignUp={false} />
         </div>
       </div>

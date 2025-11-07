@@ -85,12 +85,12 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
     <>
       <Link href={`/fitness/courses/${course._id}`}>
         <div
-          className={`w-[360px]  rounded-[30px] shadow-lg bg-white transition-transform duration-300 ease-in-out hover:scale-101  ${isLoading ? 'bg-white opacity-40 cursor-wait' : ''}`}
+          className={`w-[343px] md:w-[360px]  rounded-[30px] shadow-lg bg-white transition-transform duration-300 ease-in-out hover:scale-101  ${isLoading ? 'bg-white opacity-40 cursor-wait' : ''}`}
         >
           <div className="relative">
             <Image
               className=" rounded-[30px]"
-              width={360}
+              width={343}
               height={325}
               src={`${coverCourse?.cover}`}
               alt="yoga"
@@ -124,8 +124,8 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
               </button>
             )}
           </div>
-          <div className="mt-[24px] pb-[15px] mx-[30px]">
-            <h3 className="text-[rgba(0, 0, 0, 1)] text-[32px] font-medium leading-[38px]">
+          <div className="mt-[24px] pb-[15px] mx-[21px] md:mx-[30px]">
+            <h3 className="text-[rgba(0, 0, 0, 1)] text-[24px] md:text-[32px] font-medium leading-[28px] md:leading-[38px]">
               {course.nameRU}
             </h3>
             <div className="flex gap-[6px] flex-wrap mt-[20px]">

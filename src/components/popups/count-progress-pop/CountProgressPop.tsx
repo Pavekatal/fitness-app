@@ -22,9 +22,9 @@ export default function CountProgressPop({
       />
       <div
         onClick={onFormClick}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[426px] min-h-[270px] bg-white rounded-[30px] p-10 shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] z-80 flex flex-col items-center gap-[34px] "
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 md:-translate-y-1/2 w-[343px] md:w-[426px] min-h-[252px] md:min-h-[270px] bg-white rounded-[30px] p-10 shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] z-80 flex flex-col items-center gap-[34px] "
       >
-        <h1 className="text-black  text-[40px] font-semibold text-center leading-[47px]">
+        <h1 className="text-black  text-[32px] md:text-[40px] font-semibold text-center leading-[38px] md:leading-[47px]">
           {errorResult ? errorResult : successResult}
         </h1>
         <div className="w-[68px] h-[68px] p-[5px] ">
