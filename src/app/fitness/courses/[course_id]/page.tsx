@@ -45,13 +45,13 @@ export default function CoursePage() {
         <>
           <div className="flex flex-col items-center gap-10 md:gap-15">
             <div
-              className="hidden md:relative h-[310px] w-full bg-no-repeat bg-contain bg-right rounded-[30px]"
+              className="hidden md:block md:relative h-[310px] w-full bg-no-repeat bg-contain bg-right rounded-[30px]"
               style={{
                 backgroundImage: `url(${bannerCourse?.banner})`,
                 backgroundColor: `${bannerCourse?.bgc}`,
               }}
             >
-              <h1 className="hidden md:absolute top-10 left-10 text-white text-6xl font-medium leading-17.5 ">
+              <h1 className="hidden md:block md:absolute top-10 left-10 text-white text-6xl font-medium leading-17.5 ">
                 {currentCourse?.nameRU}
               </h1>
             </div>
@@ -82,7 +82,7 @@ export default function CoursePage() {
                 ))}
               </div>
             </div>
-            <div>
+            <div className="w-full">
               <h2 className="text-[rgba(0, 0, 0, 1)] text-[24px] md:text-[40px] leading-7 md:leading-[47px] font-semibold">
                 Направления
               </h2>

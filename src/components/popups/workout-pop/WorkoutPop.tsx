@@ -101,7 +101,7 @@ export default function WorkoutPop() {
       />
       <div
         onClick={onFormClick}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-[343px] md:min-w-115 max-h-[585px] md:h-[609px] rounded-[30px] bg-white p-[30px] md:p-10 shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] flex flex-col z-50"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-[343px] md:min-w-115 max-h-[585px] md:max-h-[609px] rounded-[30px] bg-white p-[30px] md:p-10 shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)] flex flex-col z-50"
       >
         <h2 className="text-black text-[32px] font-normal leading-[38px]">
           Выберите тренировку
@@ -116,7 +116,7 @@ export default function WorkoutPop() {
               {errorMessage}
             </h4>
           ) : (
-            <div className=" flex flex-col gap-2.5 workoutlist ">
+            <div className=" flex flex-col gap-2.5 md:min-w-[380px] workoutlist ">
               {allWorkouts.map((workout) => {
                 return (
                   <WorkoutItem

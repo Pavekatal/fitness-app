@@ -89,7 +89,7 @@ export default function ProfilePage() {
               Мои курсы
             </h2>
           </div>
-          <div className="flex flex-col mt-6 md:mt-10 mb-6 md:mb-[280px] md:flex-row md:flex-wrap gap-10">
+          <div className="flex flex-col mt-6 md:w-full md:mt-10 mb-6 md:mb-[280px] md:flex-row md:flex-wrap gap-10">
             {coursesUser.length !== 0 ? (
               coursesUser.map((course) => (
                 <Course
