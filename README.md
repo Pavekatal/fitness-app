@@ -52,7 +52,7 @@
 ### Установка зависимостей
 
 # Клонируйте репозиторий
-git clone https://github.com/ваш-репозиторий.git
+git clone https://github.com/Pavekatal/fitness-app.git
 
 # Перейдите в папку проекта
 cd имя-проекта
