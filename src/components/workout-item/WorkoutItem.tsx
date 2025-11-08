@@ -16,7 +16,6 @@ export default function WorkoutItem({
   isSelected,
   onSelect,
 }: WorkoutItemProp) {
-  // const [workoutCompleted, setWorkoutCompleted] = useState<boolean>(false);
   const bgSelectedWorkout = isSelected ? 'bg-[rgba(247,247,247,1)]' : null;
   const titleParts = workout.name.split('/').map((part) => part.trim());
   const mainTitle = titleParts[0];
@@ -32,7 +31,7 @@ export default function WorkoutItem({
     <>
       <div onClick={onSelect} className="pr-5">
         <div
-          className={`border-b-[1px] border-solid border-[#C4C4C4]  pb-[9px] flex items-center gap-[10px] ${bgSelectedWorkout} `}
+          className={`border-b border-solid border-[#C4C4C4]  pb-[9px] flex items-center gap-2.5 ${bgSelectedWorkout} `}
         >
           {workoutCompleted ? (
             <div className="w-6 h-6 p-0.5">
@@ -49,16 +48,16 @@ export default function WorkoutItem({
               <div className="w-5 h-5 rounded-[50px] border border-solid border-black"></div>
             </div>
           )}
-          <div className="flex flex-col  gap-[10px]">
+          <div className="flex flex-col  gap-2.5">
             <h4 className="text-black text-[18px] md:text-[24px] font-normal leading-[19px] md:leading-[26px] ">
               {mainTitle}
             </h4>
             {subTitle ? (
-              <p className="text-black text-[14px] md:text-[16px] font-normal leading-[16px] md:leading-[18px] ">
+              <p className="text-black text-[14px] md:text-[16px] font-normal leading-4 md:leading-[18px] ">
                 {subTitle}
               </p>
             ) : (
-              <p className=" text-black text-[14px] md:text-[16px] font-normal leading-[16px] md:leading-[18px] "></p>
+              <p className=" text-black text-[14px] md:text-[16px] font-normal leading-4 md:leading-[18px] "></p>
             )}
           </div>
         </div>

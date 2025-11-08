@@ -63,7 +63,7 @@ export default function CoursePage() {
               }}
             ></div>
             <div>
-              <h2 className="text-[rgba(0, 0, 0, 1)] text-[24px] md:text-[40px]  leading-[28px] md:leading-[47px] font-semibold">
+              <h2 className="text-[rgba(0, 0, 0, 1)] text-[24px] md:text-[40px]  leading-7 md:leading-[47px] font-semibold">
                 Подойдет для вас, если:
               </h2>
               <div className="flex flex-col md:flex-row gap-[17px] mt-6 md:mt-10">
@@ -75,7 +75,7 @@ export default function CoursePage() {
                     <h3 className="text-[#BCEC30] text-[75px] md:text-7xl font-medium leading-[88px]">
                       {i + 1}
                     </h3>
-                    <p className="text-white text-[18px] md:text-2xl font-normal leading-[21px] md:leading-[28px]">
+                    <p className="text-white text-[18px] md:text-2xl font-normal leading-[21px] md:leading-7">
                       {item}
                     </p>
                   </span>
@@ -83,14 +83,14 @@ export default function CoursePage() {
               </div>
             </div>
             <div>
-              <h2 className="text-[rgba(0, 0, 0, 1)] text-[24px] md:text-[40px] leading-[28px] md:leading-[47px] font-semibold">
+              <h2 className="text-[rgba(0, 0, 0, 1)] text-[24px] md:text-[40px] leading-7 md:leading-[47px] font-semibold">
                 Направления
               </h2>
               <div className="h-auto w-full bg-[#BCEC30] rounded-[28px] p-7.5 mt-6 md:mt-10 flex flex-col md:flex-row md:flex-wrap gap-6 md:gap-x-[124px] md:gap-y-[34px]">
                 {currentCourse?.directions.map((item, i) => (
                   <p
                     key={i}
-                    className="w-[284px] text-black text-[18px] md:text-2xl font-normal leading-[21px] md:leading-[28px] sparcle "
+                    className="w-[284px] text-black text-[18px] md:text-2xl font-normal leading-[21px] md:leading-7 sparcle "
                   >
                     {item}
                   </p>
@@ -100,16 +100,16 @@ export default function CoursePage() {
           </div>
           <div className="relative mb-[30px] md:mb-12.5 h-[568px] md:h-[588px] w-[343px] md:w-full md:overflow-hidden">
             <div className="absolute bottom-0 w-[343px] md:w-full h-[412px] md:h-[486px] rounded-[30px] p-[30px] md:p-10 bg-white shadow-[0px_4px_67px_-12px_rgba(0,0,0,0.13)]   flex z-60 md:z-10 ">
-              <div className="w-[283px] md:w-[437px] flex flex-col gap-[28px]">
+              <div className="w-[283px] md:w-[437px] flex flex-col gap-7">
                 <h2 className="text-black text-[32px] md:text-6xl font-medium leading-[38px] md:leading-[70px] ">
                   Начните путь к новому телу
                 </h2>
-                <ul className="list-disc list-outside pl-[30px] text-black opacity-60 text-[18px] md:text-2xl font-normal leading-[21px] md:leading-[28px]">
-                  <li className="pb-[4px]">проработка всех групп мышц</li>
-                  <li className="pb-[4px]">тренировка суставов</li>
-                  <li className="pb-[4px]">улучшение циркуляции крови</li>
-                  <li className="pb-[4px]">упражнения заряжают бодростью</li>
-                  <li className="pb-[4px]">помогают противостоять стрессам</li>
+                <ul className="list-disc list-outside pl-[30px] text-black opacity-60 text-[18px] md:text-2xl font-normal leading-[21px] md:leading-7">
+                  <li className="pb-1">проработка всех групп мышц</li>
+                  <li className="pb-1">тренировка суставов</li>
+                  <li className="pb-1">улучшение циркуляции крови</li>
+                  <li className="pb-1">упражнения заряжают бодростью</li>
+                  <li className="pb-1">помогают противостоять стрессам</li>
                 </ul>
                 {!token ? (
                   <Link
@@ -137,7 +137,7 @@ export default function CoursePage() {
               </div>
             </div>
             <Image
-              className="absolute z-50 right-[-28px] md:right-[57px] top-[-28px] md:top-[87px] scale-[1.51] md:scale-[1.4] "
+              className="absolute z-50 -right-7 md:right-[57px] -top-7 md:top-[87px] scale-[1.51] md:scale-[1.4] "
               width={520}
               height={540}
               src="/img/start-up.png"

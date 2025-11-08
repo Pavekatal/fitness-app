@@ -14,9 +14,9 @@ export default function Home() {
           Начните заниматься спортом и улучшите качество жизни
         </h1>
         <div>
-          <div className="hidden md:block relative bg-[#BCEC30] text-[#202020] text-[32px] w-[288px] h-[102px] px-[20px] py-[16px] font-normal leading-[38px] triangle">
+          <div className="hidden md:block relative bg-[#BCEC30] text-[#202020] text-[32px] w-[288px] h-[102px] px-5 py-4 font-normal leading-[38px] triangle">
             Измени своё тело за полгода!
-            <div className="absolute w-0; h-0; border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[40px] border-t-[#BCEC30] rotate-[40deg] top-[90px] left-[120px]"></div>
+            <div className="absolute w-0; h-0; border-l-10 border-l-transparent border-r-10 border-r-transparent border-t-40 border-t-[#BCEC30] rotate-40deg top-[90px] left-[120px]"></div>
           </div>
         </div>
       </section>
@@ -29,7 +29,7 @@ export default function Home() {
             <div className="flex flex-col items-end">
               <a
                 href="#start"
-                className="w-[127px] h-[52px] rounded-[46px] px-[26px] py-[16px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] font-normal leading-[21px] cursor-pointer"
+                className="w-[127px] h-[52px] rounded-[46px] px-[26px] py-4 bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] font-normal leading-[21px] cursor-pointer"
               >
                 Наверх &uarr;
               </a>

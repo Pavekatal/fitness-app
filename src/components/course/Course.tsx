@@ -90,7 +90,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
           <div className="relative">
             <Image
               className=" rounded-[30px]"
-              width={343}
+              width={360}
               height={325}
               src={`${coverCourse?.cover}`}
               alt="yoga"
@@ -99,7 +99,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
             {!isProfile ? (
               <button
                 onClick={(e) => onAddCourse(e, course._id)}
-                className="absolute top-[20px] right-[20px] bg-none p-0 border-none cursor-pointer  rounded-full w-[32px] h-[32px] hover:scale-[1.1] hover:shadow-xl"
+                className="absolute top-5 right-5 bg-none p-0 border-none cursor-pointer  rounded-full w-8 h-8 hover:scale-[1.1] hover:shadow-xl"
               >
                 <Image
                   width={32}
@@ -112,7 +112,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
             ) : (
               <button
                 onClick={(e) => onDeleteCourse(e, course._id)}
-                className="absolute top-[20px] rounded-full right-[20px] bg-none p-0 border-none cursor-pointer w-[32px] h-[32px] hover:scale-[1.1] hover:shadow-xl"
+                className="absolute top-5 rounded-full right-5 bg-none p-0 border-none cursor-pointer w-8 h-8 hover:scale-[1.1] hover:shadow-xl"
               >
                 <Image
                   width={32}
@@ -124,12 +124,12 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
               </button>
             )}
           </div>
-          <div className="mt-[24px] pb-[15px] mx-[21px] md:mx-[30px]">
-            <h3 className="text-[rgba(0, 0, 0, 1)] text-[24px] md:text-[32px] font-medium leading-[28px] md:leading-[38px]">
+          <div className="mt-6 pb-[15px] mx-[21px] md:mx-[30px]">
+            <h3 className="text-[rgba(0, 0, 0, 1)] text-[24px] md:text-[32px] font-medium leading-7 md:leading-[38px]">
               {course.nameRU}
             </h3>
-            <div className="flex gap-[6px] flex-wrap mt-[20px]">
-              <div className="flex items-center gap-[6px] h-[38px] rounded-[50px] bg-[#F7F7F7] p-2.5">
+            <div className="flex gap-1.5 flex-wrap mt-5">
+              <div className="flex items-center gap-1.5 h-[38px] rounded-[50px] bg-[#F7F7F7] p-2.5">
                 <Image
                   width={18}
                   height={18}
@@ -140,7 +140,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
                   {course.durationInDays} дней
                 </p>
               </div>
-              <div className="flex items-center gap-[6px] h-[38px] rounded-[50px] bg-[#F7F7F7] p-2.5">
+              <div className="flex items-center gap-1.5 h-[38px] rounded-[50px] bg-[#F7F7F7] p-2.5">
                 <Image
                   width={18}
                   height={18}
@@ -152,7 +152,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
                   {course.dailyDurationInMinutes.to} мин/день
                 </p>
               </div>
-              <div className="flex items-center gap-[6px] h-[38px] rounded-[50px] bg-[#F7F7F7] p-2.5">
+              <div className="flex items-center gap-1.5 h-[38px] rounded-[50px] bg-[#F7F7F7] p-2.5">
                 <Image
                   width={18}
                   height={18}
@@ -186,7 +186,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
                     onClick={(
                       e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
                     ) => onWorkoutPop(e, course._id)}
-                    className="w-[300px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
+                    className="w-[300px] h-[52px] bg-[#BCEC30] px-[26px] py-4 text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
                   >
                     {valueProgress(percentProgressCourse)}
                   </Button>

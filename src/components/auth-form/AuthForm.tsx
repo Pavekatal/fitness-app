@@ -151,7 +151,7 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
 
   return (
     <form className="flex flex-col items-center ">
-      <div className="mb-[48px]  ">
+      <div className="mb-12  ">
         <Logo />
       </div>
       <div className="flex flex-col items-center gap-8.5">
@@ -189,7 +189,7 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
             />
           )}
           {!errorMessage && (
-            <p className="text-[rgba(219,0,48,1)] text-sm font-normal leading-[16px] text-center ">
+            <p className="text-[rgba(219,0,48,1)] text-sm font-normal leading-4 text-center ">
               {error}
             </p>
           )}
@@ -197,14 +197,14 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
         <div className="flex flex-col items-center gap-2.5">
           <Button
             onClick={onSubmitUserData}
-            className={`w-[280px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-[18px] font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white ${isLoading ? 'bg-[#F7F7F7] text-[#999999] pointer-events-none' : ''} `}
+            className={`w-[280px] h-[52px] bg-[#BCEC30] px-[26px] py-4 text-black text-[18px] font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white ${isLoading ? 'bg-[#F7F7F7] text-[#999999] pointer-events-none' : ''} `}
           >
             {!isSignUp ? 'Войти' : 'Зарегистрироваться'}
           </Button>
 
           <Link
             href={!isSignUp ? '/auth/sign-up' : '/auth/sign-in'}
-            className={`rounded-[46px] text-center w-[280px] h-[52px] bg-transparent px-[26px] py-[16px] text-black text-[18px] font-normal leading-[21px] border border-solid border-black hover:bg-[#F7F7F7] focus:bg-[#E9ECED]   ${isLoading ? 'border-[1px_solid_-rgba(153,153,153,1)]' : ''} ${isLoading ? 'text-[#999999]' : ''} ${isLoading ? 'bg-transparent' : ''} ${isLoading ? 'pointer-events-none ' : ''} ' `}
+            className={`rounded-[46px] text-center w-[280px] h-[52px] bg-transparent px-[26px] py-4 text-black text-[18px] font-normal leading-[21px] border border-solid border-black hover:bg-[#F7F7F7] focus:bg-[#E9ECED]   ${isLoading ? 'border-[1px_solid_-rgba(153,153,153,1)]' : ''} ${isLoading ? 'text-[#999999]' : ''} ${isLoading ? 'bg-transparent' : ''} ${isLoading ? 'pointer-events-none ' : ''} ' `}
           >
             {!isSignUp ? 'Зарегистрироваться' : 'Войти'}
           </Link>

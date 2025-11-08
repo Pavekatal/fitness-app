@@ -100,7 +100,7 @@ export default function WorkoutPage() {
   return (
     <div className="flex flex-col gap-6 md:gap-10 items-center md:items-start mb-10 md:mb-[260px] ">
       <div className="flex flex-col items-start w-full">
-        <h1 className="text-black text-[24px] md:text-[60px] font-medium leading-[28px] md:leading-[70px] ">
+        <h1 className="text-black text-[24px] md:text-[60px] font-medium leading-7 md:leading-[70px] ">
           {course?.nameRU}
         </h1>
       </div>
@@ -120,7 +120,7 @@ export default function WorkoutPage() {
               !isProgressMatching || i >= checkedProgressData.length ? (
                 <div
                   key={exercise._id}
-                  className="w-[283px] md:w-[320px] flex flex-col items-start gap-[10px]"
+                  className="w-[283px] md:w-[320px] flex flex-col items-start gap-2.5"
                 >
                   <p className="text-black text-[17px] font-normal leading-[21px]">{`${exercise.name} ${isLoading ? 'данные загружаются...' : '0%'} `}</p>
                   <div className="w-[283px] md:w-[320px] h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden ">
@@ -140,7 +140,7 @@ export default function WorkoutPage() {
                   return (
                     <div
                       key={exercise._id}
-                      className="w-[283px] md:w-[320px] flex flex-col items-start gap-[10px]"
+                      className="w-[283px] md:w-[320px] flex flex-col items-start gap-2.5"
                     >
                       <p className="text-black text-[17px] font-normal leading-[21px] ">{`${exercise.name} (${progressCount}/${exercise.quantity})`}</p>
                       <div className="w-[283px] md:w-[320px] h-1.5 rounded-[50px] bg-[rgba(247,247,247,1)] overflow-hidden">

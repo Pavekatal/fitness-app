@@ -53,7 +53,7 @@ export default function ProfilePage() {
       <div className="flex flex-col items-center gap-6 md:gap-15 mb-10">
         <div className="flex flex-col items-start md:w-full">
           <div className="flex items-start">
-            <h2 className="text-black text-[24px] md:text-[40px] font-semibold leading-[28px] md:leading-[47px]">
+            <h2 className="text-black text-[24px] md:text-[40px] font-semibold leading-7 md:leading-[47px]">
               Профиль
             </h2>
           </div>
@@ -65,9 +65,9 @@ export default function ProfilePage() {
               alt="avatar user"
               className="w-[141px] md:w-[197px] h-[141px] md:h-[197px]  "
             />
-            <div className="w-full flex flex-col items-start gap-[20px] md:gap-11">
-              <div className="flex flex-col gap-[20px] md:gap-7.5 items-start">
-                <h3 className="text-black text-[24px] md:text-[32px] font-medium leading-[28px] md:leading-[38px]">
+            <div className="w-full flex flex-col items-start gap-5 md:gap-11">
+              <div className="flex flex-col gap-5 md:gap-7.5 items-start">
+                <h3 className="text-black text-[24px] md:text-[32px] font-medium leading-7 md:leading-[38px]">
                   {currentUser?.email}
                 </h3>
                 <p className="text-black text-[16px] md:text-lg font-normal leading-[19px] md:leading-[21px] ">
@@ -76,7 +76,7 @@ export default function ProfilePage() {
               </div>
               <Button
                 onClick={onLogout}
-                className="w-full h-[50px] md:w-[192px] px-6.5 py-4 bg-transparent border border-solid border-black text-black text-[16px] md:text-lg font-normal leading-[19px] md:leading-[21px]  hover:bg-[#F7F7F7] focus:bg-[#E9ECED]"
+                className="w-full h-[50px] md:w-48 px-6.5 py-4 bg-transparent border border-solid border-black text-black text-[16px] md:text-lg font-normal leading-[19px] md:leading-[21px]  hover:bg-[#F7F7F7] focus:bg-[#E9ECED]"
               >
                 Выйти
               </Button>
@@ -85,7 +85,7 @@ export default function ProfilePage() {
         </div>
         <div className="flex flex-col items-start md:w-full">
           <div className="flex items-start">
-            <h2 className="text-black text-[24px] md:text-[40px] font-semibold leading-[28px] md:leading-[47px]">
+            <h2 className="text-black text-[24px] md:text-[40px] font-semibold leading-7 md:leading-[47px]">
               Мои курсы
             </h2>
           </div>
@@ -108,7 +108,7 @@ export default function ProfilePage() {
         <div className="w-full flex flex-col items-end">
           <a
             href="#start"
-            className="block md:hidden w-[127px] h-[52px] rounded-[46px] px-[26px] py-[16px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] font-normal leading-[21px] cursor-pointer"
+            className="block md:hidden w-[127px] h-[52px] rounded-[46px] px-[26px] py-4 bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] font-normal leading-[21px] cursor-pointer"
           >
             Наверх &uarr;
           </a>

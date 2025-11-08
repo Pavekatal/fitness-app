@@ -71,11 +71,11 @@ export default function ProgressPop({
         <h2 className="text-black text-[32px]  font-normal leading-[38px]">
           Мой прогресс
         </h2>
-        <div className="flex flex-col w-[346px] h-[347px] items-start gap-[20px] mt-[34px] md:mt-[47px] mb-[34px] pr-5 workoutlist">
+        <div className="flex flex-col w-[346px] h-[347px] items-start gap-5 mt-[34px] md:mt-[47px] mb-[34px] pr-5 workoutlist">
           {currentWorkout?.exercises.map((exercise, i) => (
             <div
               key={exercise._id}
-              className="flex flex-col items-start gap-[10px] mb-[1px]"
+              className="flex flex-col items-start gap-2.5 mb-px"
             >
               <p className="w-[237px] md:w-[320px] text-black text-[16px] md:text-[18px] font-normal leading-[19px] ">
                 Сколько раз вы сделали {exercise.name.toLowerCase()}?

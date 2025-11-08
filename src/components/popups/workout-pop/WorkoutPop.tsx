@@ -106,17 +106,17 @@ export default function WorkoutPop() {
         <h2 className="text-black text-[32px] font-normal leading-[38px]">
           Выберите тренировку
         </h2>
-        <div className="h-[360px] mt-[34px] md:mt-[48px] mb-[34px] flex workoutcontent">
+        <div className="h-[360px] mt-[34px] md:mt-12 mb-[34px] flex workoutcontent">
           {isLoading ? (
             <h4 className="text-black text-[18px] md:text-[24px] font-normal leading-[21px] md:leading-[26px] ">
               Тренировки загружаются ...
             </h4>
           ) : errorMessage ? (
-            <h4 className="text-black text-[18px] md:text-[24px] font-normal leading-[21px] md:leading-[28px] w-[283px] md:w-[380px] text-center ">
+            <h4 className="text-black text-[18px] md:text-[24px] font-normal leading-[21px] md:leading-7 w-[283px] md:w-[380px] text-center ">
               {errorMessage}
             </h4>
           ) : (
-            <div className=" flex flex-col gap-[10px] workoutlist ">
+            <div className=" flex flex-col gap-2.5 workoutlist ">
               {allWorkouts.map((workout) => {
                 return (
                   <WorkoutItem
@@ -135,14 +135,14 @@ export default function WorkoutPop() {
           courseCompleted ? (
             <Button
               onClick={onDeleteProgress}
-              className="w-[283px] md:w-[380px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
+              className="w-[283px] md:w-[380px] h-[52px] bg-[#BCEC30] px-[26px] py-4 text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
             >
               Удалить прогресс
             </Button>
           ) : (
             <Link
               href={`/fitness/workouts/${selectedWorkout}`}
-              className="w-[283px] md:w-[380px] h-[52px] rounded-[46px] px-[26px] py-[16px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] text-center font-normal leading-[21px] cursor-pointer"
+              className="w-[283px] md:w-[380px] h-[52px] rounded-[46px] px-[26px] py-4 bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] text-center font-normal leading-[21px] cursor-pointer"
             >
               Начать
             </Link>
@@ -150,14 +150,14 @@ export default function WorkoutPop() {
         ) : currentStatusWorkout === 'delete' ? (
           <Button
             onClick={onDeleteProgress}
-            className="w-[283px] md:w-[380px] h-[52px] bg-[#BCEC30] px-[26px] py-[16px] text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
+            className="w-[283px] md:w-[380px] h-[52px] bg-[#BCEC30] px-[26px] py-4 text-black text-lg font-normal leading-[21px] hover:bg-[#C6FF00] focus:bg-black focus:text-white"
           >
             Удалить прогресс
           </Button>
         ) : (
           <Link
             href={`/fitness/workouts/${selectedWorkout}`}
-            className="w-[283px] md:w-[380px] h-[52px] rounded-[46px] px-[26px] py-[16px] bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] text-center font-normal leading-[21px] cursor-pointer"
+            className="w-[283px] md:w-[380px] h-[52px] rounded-[46px] px-[26px] py-4 bg-[#BCEC30] text-[rgba(0, 0, 0, 1)] text-[18px] text-center font-normal leading-[21px] cursor-pointer"
           >
             Начать
           </Link>

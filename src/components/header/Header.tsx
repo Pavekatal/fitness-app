@@ -50,7 +50,7 @@ export default function Header() {
               alt="profile"
               className="w-9 h-9 md:w-[50px] md:h-[50px]"
             />
-            <p className="hidden md:flex items-center ml-4 text-black text-2xl font-normal leading-[28px] ">
+            <p className="hidden md:flex items-center ml-4 text-black text-2xl font-normal leading-7 ">
               {currentUser.email}
             </p>
           </div>
