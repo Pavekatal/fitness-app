@@ -103,7 +103,6 @@ export const getProgressByCourse = async (
       Authorization: `Bearer ${token}`,
     },
   }).then((res) => {
-    console.log('Progress of course from api:', res.data);
     return res.data;
   });
 };
@@ -126,7 +125,6 @@ export const addProgress = async (
       },
     )
     .then((res) => {
-      console.log('add progress from api:', res.data);
       return res.data;
     });
 };
@@ -148,7 +146,6 @@ export const deleteProgress = async (
       },
     )
     .then((res) => {
-      console.log('Res from delete progress api:', res.data);
       return res.data;
     });
 };

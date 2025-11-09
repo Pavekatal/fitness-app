@@ -54,7 +54,6 @@ export default function WorkoutPage() {
       addProgress(token, course._id, currentWorkout?._id, progressData)
         .then((res) => {
           setSuccessAddProgress(res.message);
-          console.log('result add progress data', res);
         })
         .catch((error) => {
           if (error instanceof AxiosError) {

@@ -12,7 +12,6 @@ export default function CountProgressPop({
   const onFormClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
   };
-  console.log('errorResult', errorResult);
 
   return (
     <>

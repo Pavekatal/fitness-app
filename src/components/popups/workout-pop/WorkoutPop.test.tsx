@@ -35,7 +35,9 @@ jest.mock('@/hooks/useUserData', () => ({
 }));
 jest.mock('@/components/button/Button', () => ({
   __esModule: true,
-  default: (props: any) => <button {...props} />,
+  default: (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+    <button {...props} />
+  ),
 }));
 
 // --- 2. Настройка Redux Store и фиктивных данных ---

@@ -50,6 +50,6 @@ export default function FetchingCourses() {
           });
       }
     }
-  }, [dispatch, allCourses]);
+  }, [dispatch, allCourses, pathname]);
   return <></>;
 }
