@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { useInitAuth } from '@/hooks/useInitAuth';
-import { setErrorMessage } from '@/store/features/workoutSlice';
+import { setErrorMessage, setIsLoading } from '@/store/features/workoutSlice';
 import { useAppDispatch } from '@/store/store';
 
 export default function InitAuthAndClearError() {
@@ -13,6 +13,7 @@ export default function InitAuthAndClearError() {
 
   useEffect(() => {
     dispatch(setErrorMessage(''));
+    dispatch(setIsLoading(false));
   }, [pathname, dispatch]);
 
   useInitAuth();

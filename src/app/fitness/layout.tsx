@@ -9,7 +9,7 @@ import InitAuthAndClearError from '@/components/initial-clear/InitAuthAndClearEr
 
 export default function FitnessLayout(props: { children: ReactNode }) {
   return (
-    <div className="ml-4 md:ml-[140px] mr-4 md:mr-[140px] ">
+    <div className="max-w-[1160px] mx-auto ">
       <header id="start">
         <Header />
       </header>
