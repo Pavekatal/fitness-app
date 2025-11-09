@@ -13,7 +13,6 @@ export type CourseType = {
     to: number;
   };
   workouts: string[];
-  // progress: number;
   __v: number;
 };
 
@@ -68,10 +67,6 @@ export interface UserAuthType {
   password: string;
   repeatePassword?: string;
 }
-
-// export type UserRegType = UserAuthType & {
-//   repeatePassword: string;
-// };
 
 export interface UserForApiType {
   _id?: string;

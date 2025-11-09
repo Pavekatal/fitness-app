@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import AuthForm from './AuthForm';
 import * as AuthApi from '@/services/auth/authApi';
+import { AppStore } from '@/store/store';
 
 // --- Имитация зависимостей ---
 jest.mock('@/services/auth/authApi');
@@ -20,7 +21,7 @@ jest.mock('react-toastify', () => ({ toast: jest.fn() }));
 // --- Настройка Redux Store ---
 const mockStore = configureStore([]);
 
-const renderComponent = (isSignUp: boolean, storeOverride?: any) => {
+const renderComponent = (isSignUp: boolean, storeOverride?: AppStore) => {
   const storeInstance =
     storeOverride ||
     mockStore({
