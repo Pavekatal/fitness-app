@@ -29,7 +29,7 @@ export default function WorkoutItem({
 
   return (
     <>
-      <div onClick={onSelect} className="pr-5">
+      <div onClick={onSelect} className="pr-5 cursor-pointer ">
         <div
           className={`border-b border-solid border-[#C4C4C4]  pb-[9px] flex items-center gap-2.5 ${bgSelectedWorkout} `}
         >

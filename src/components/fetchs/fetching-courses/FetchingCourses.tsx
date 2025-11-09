@@ -19,11 +19,14 @@ export default function FetchingCourses() {
 
   // Загрузка всех курсов
   useEffect(() => {
-    if (pathname.startsWith('/fitness/main')) {
-      dispatch(setIsLoading(true));
+    if (
+      pathname.startsWith('/fitness/main') ||
+      pathname.startsWith('/fitness/profile')
+    ) {
       dispatch(setErrorMessage(''));
 
       if (!allCourses.length) {
+        dispatch(setIsLoading(true));
         getAllCourses()
           .then((res) => {
             dispatch(setAllCourses(res));

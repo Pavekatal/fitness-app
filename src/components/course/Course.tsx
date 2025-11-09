@@ -60,10 +60,12 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
     }
   }, [dispatch, token, course._id, pathname, fetchAllWorkouts]);
 
-  const percentProgressCourse = usePercentageProgressCourse(
+  let percentProgressCourse: number = usePercentageProgressCourse(
     course._id,
     localAllWorkout,
   );
+
+  percentProgressCourse = Math.min(percentProgressCourse, 100);
 
   const valueProgress = (progress: number): string => {
     let textButton = '';
@@ -74,7 +76,7 @@ export default function Course({ course, onWorkoutPop }: CourseProp) {
     if (progress > 0 && progress < 100) {
       textButton = 'Продолжить';
     }
-    if (progress === 100) {
+    if (progress >= 100) {
       textButton = 'Начать заново';
     }
 
