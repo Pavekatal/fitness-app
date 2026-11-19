@@ -64,7 +64,7 @@ export default function WorkoutPage() {
             } else if (error.request) {
               dispatch(
                 setErrorMessage(
-                  'Похоже, что-то с интернет-соединением. Попробуйте позже',
+                  'Похоже, что-то с интернет-соединением. Попробуйте позже.',
                 ),
               );
             } else {
